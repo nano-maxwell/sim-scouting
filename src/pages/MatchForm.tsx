@@ -6,7 +6,7 @@ import NumericInput from "../components/IntegerInput";
 import IntegerInput from "../components/IntegerInput";
 import Dropdown from "../components/Dropdown";
 import AutoResizeTextarea from "../components/AutoResizeTextArea";
-import writeData from "../scripts/firebase";
+import { writeData }  from "../scripts/firebase";
 
 const MatchForm: React.FC = () => {
     const [section, setSection] = useState<"setup" | "auto" | "teleop" | "endgame">("setup");
@@ -106,7 +106,7 @@ const MatchForm: React.FC = () => {
         The path for block of data will be submitted as follows:
         /{eventName}/{teamNumber}/{matchNumber}/{timestamp}
         */
-        
+        writeData(`${eventName}/${teamNumber?.toString()}/${matchNumber?.toString()}`, data);
     }
 
     const tab = (name: string) =>
