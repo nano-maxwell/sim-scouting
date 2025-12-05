@@ -6,6 +6,7 @@ import NumericInput from "../components/IntegerInput";
 import IntegerInput from "../components/IntegerInput";
 import Dropdown from "../components/Dropdown";
 import AutoResizeTextarea from "../components/AutoResizeTextArea";
+import { writeData }  from "../scripts/firebase";
 
 const MatchForm: React.FC = () => {
     const [section, setSection] = useState<"setup" | "auto" | "teleop" | "endgame">("setup");
@@ -74,6 +75,41 @@ const MatchForm: React.FC = () => {
         }
     }
 
+    function submitData() {
+        const data = { // sample data object
+            eventName: eventName,
+            teamNumber: teamNumber,
+            matchNumber: matchNumber,
+            passedStartingLine: passedStartingLine,
+            autoL4Coral: autoL4Coral,
+            autoL3Coral: autoL3Coral,
+            autoL2Coral: autoL2Coral,
+            autoL1Coral: autoL1Coral,
+            autoL3AlgaeRemoved: autoL3AlgaeRemoved,
+            autoL2AlgaeRemoved: autoL2AlgaeRemoved,
+            autoBargeAlgae: autoBargeAlgae,
+            autoProcessorAlgae: autoProcessorAlgae,
+            playedDefense: playedDefense,
+            teleopL4Coral: teleopL4Coral,
+            teleopL3Coral: teleopL3Coral,
+            teleopL2Coral: teleopL2Coral,
+            teleopL1Coral: teleopL1Coral,
+            teleopL3AlgaeRemoved: teleopL3AlgaeRemoved,
+            teleopL2AlgaeRemoved: teleopL2AlgaeRemoved,
+            teleopBargeAlgae: teleopBargeAlgae,
+            teleopProcessorAlgae: teleopProcessorAlgae,
+            endgameAction: endgameAction,
+            hadError: hadError,
+            robotError: robotError
+        };
+        /*
+        The path for block of data will be submitted as follows:
+        /{eventName}/{teamNumber}/{matchNumber}/{timestamp}, timestamp is not finished
+        */
+        console.log(`submitting data to ${eventName}/${teamNumber?.toString()}/${matchNumber?.toString()}`)
+        writeData(`${eventName}/${teamNumber?.toString()}/${matchNumber?.toString()}`, data);
+    }
+
     const tab = (name: string) =>
         `px-5 py-2 rounded-full font-semibold transition-colors ${section === name ? "bg-sky-600 text-white" : "bg-gray-700 text-gray-300 hover:bg-gray-600"
         }`;
@@ -138,7 +174,7 @@ const MatchForm: React.FC = () => {
             <Dropdown label="Endgame Action" placeholder={"Select action"} value={endgameAction} onChange={setEndgameAction} options={endgameActions} />
             <BinaryChoice label="Robot error during match?" options={["Yes", "No"]} button1Selected={hadError} onChange={changeError} />
             {hadError && (<Dropdown label="What went wrong?" placeholder={"Select one"} value={robotError} onChange={setRobotError} options={robotErrors} />)}
-            <button className={buttonStyle + " absolute bottom-27.5"}>Submit</button>
+            <button className={buttonStyle + " absolute bottom-27.5"} onClick={submitData}>Submit</button>
             <div className="flex flex-col items-center space-y-2">
                 <h3 className="font-semibold text-white text-2xl pb-1">Additional Notes?</h3>
                 <AutoResizeTextarea placeholder="(Leave blank if none)" />
