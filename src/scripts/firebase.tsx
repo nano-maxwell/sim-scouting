@@ -11,17 +11,7 @@ interface FirebaseConfig {
   measurementId?: string | undefined;
 }
 
-const firebaseConfig: FirebaseConfig = {
-  apiKey: process.env.apiKey,
-  authDomain: process.env.authDomain,
-  projectId: process.env.projectId,
-  storageBucket: process.env.storageBucket,
-  messagingSenderId: process.env.messagingSenderId,
-  appId: process.env.appId,
-  measurementId: process.env.measurementId,
-};
-/*
-const firebaseConfig = {
+const firebaseConfig: FirebaseConfig = { // env has not been gitignored, add after
   apiKey: import.meta.env.VITE_API_KEY as string,
   authDomain: import.meta.env.VITE_AUTH_DOMAIN as string,
   projectId: import.meta.env.VITE_PROJECT_ID as string,
@@ -30,7 +20,7 @@ const firebaseConfig = {
   appId: import.meta.env.VITE_APP_ID as string,
   measurementId: import.meta.env.VITE_MEASUREMENT_ID as string | undefined,
 };
-*/
+
 
 const app = initializeApp(firebaseConfig);
 const db: Database = getDatabase(app);
