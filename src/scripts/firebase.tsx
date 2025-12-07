@@ -1,5 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { doc, setDoc, getFirestore } from "firebase/firestore";
+import { getAuth,createUserWithEmailAndPassword, signInWithEmailAndPassword} from "firebase/auth";
+
 
 interface FirebaseConfig {
     apiKey: string | undefined;
@@ -24,6 +26,8 @@ const firebaseConfig: FirebaseConfig = { // env has not been gitignored, add aft
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+const auth = getAuth(app);
+
 
 export async function writeData(path: string, data: Record<string, any>) {
     try {
@@ -35,5 +39,27 @@ export async function writeData(path: string, data: Record<string, any>) {
         console.error("Error writing document:", err);
         alert("An error occured: your data has been saved locally but not uploaded.");
         return false;
+    }
+}
+
+export async function registerUser(email: string, password: string) {
+    try {
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        console.log("User registered:", userCredential.user.uid);
+        return userCredential.user;
+    } catch (err) {
+        console.error("Error registering user:", err);
+        throw err;
+    }
+}
+
+export async function loginUser(email: string, password: string) {
+    try {
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        console.log("User logged in:", userCredential.user.uid);
+        return userCredential.user;
+    } catch (err) {
+        console.error("Error logging in user:", err);
+        throw err;
     }
 }
