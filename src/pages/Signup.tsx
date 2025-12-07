@@ -1,10 +1,25 @@
-import React from "react";
+import React, {useState} from "react";
 import { useNavigate } from "react-router-dom";
+import { registerUser } from "../scripts/firebase";
 
 const SignupPage: React.FC = () => {
     const navigate = useNavigate();
+    
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
+
     const handleSignup = () => {
-        console.log("Signup clicked");
+        if (password.length <= 6) {
+            alert("Password must be longer than 6 characters.");
+            return;
+        }
+        if (password !== confirmPassword) {
+            alert("Passwords do not match!");
+            return;
+        } else {
+            registerUser(email, password)
+        }
     };
 
     const goToLogin = () => {
@@ -21,18 +36,21 @@ const SignupPage: React.FC = () => {
                     type="email"
                     placeholder="Email"
                     className="bg-gray-800 text-white px-4 py-3 rounded-2xl outline-none"
+                    onChange={(e) => setEmail(e.target.value)}
                 />
 
                 <input
                     type="password"
                     placeholder="Password"
                     className="bg-gray-800 text-white px-4 py-3 rounded-2xl outline-none"
+                    onChange={(e) => setPassword(e.target.value)}
                 />
 
                 <input
                     type="password"
                     placeholder="Confirm Password"
                     className="bg-gray-800 text-white px-4 py-3 rounded-2xl outline-none"
+                    onChange={(e) => setConfirmPassword(e.target.value)}
                 />
 
                 <button

@@ -1,6 +1,8 @@
 import { initializeApp } from "firebase/app";
 import { doc, setDoc, getFirestore } from "firebase/firestore";
 import { getAuth,createUserWithEmailAndPassword, signInWithEmailAndPassword} from "firebase/auth";
+import { generateCookie } from "./user";
+
 
 
 interface FirebaseConfig {
@@ -45,10 +47,12 @@ export async function writeData(path: string, data: Record<string, any>) {
 export async function registerUser(email: string, password: string) {
     try {
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-        console.log("User registered:", userCredential.user.uid);
+        console.log("User registered:", userCredential.user);
+        generateCookie("user", userCredential.user.email, 7);
         return userCredential.user;
     } catch (err) {
         console.error("Error registering user:", err);
+        alert("An error occured during registration. This email has likely already been used, or your email is invalid.");
         throw err;
     }
 }
@@ -57,7 +61,7 @@ export async function loginUser(email: string, password: string) {
     try {
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
         console.log("User logged in:", userCredential.user.uid);
-        return userCredential.user;
+        return userCredential.user.uid;
     } catch (err) {
         console.error("Error logging in user:", err);
         throw err;

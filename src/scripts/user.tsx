@@ -1,4 +1,4 @@
-function generateCookie(name: string, value: string, days: number) {
+export function generateCookie(name: string, value: string | null, days: number) {
     let expires = ""
     if (days) {
         let date = new Date()
@@ -7,7 +7,7 @@ function generateCookie(name: string, value: string, days: number) {
     }
     document.cookie = name + "=" + value + expires + "; path=/"
 }
-function readCookie(name: string) { // this function assumes the cookie exists
+export function readCookie(name: string) { // this function assumes the cookie exists
     let nameEQ = name + "="
     let ca = document.cookie.split(';')
     for (let i = 0; i < ca.length; i++) {
@@ -16,7 +16,3 @@ function readCookie(name: string) { // this function assumes the cookie exists
         if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length)
     }
 }
-export default {
-    generateCookie,
-    readCookie
-};
