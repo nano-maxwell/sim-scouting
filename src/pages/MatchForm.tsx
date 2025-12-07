@@ -114,7 +114,7 @@ const MatchForm: React.FC = () => {
         The path for block of data will be submitted as follows:
         /{eventName}/{teamNumber}/{matchNumber}/{timestamp}, timestamp is not finished
         */
-        
+
         if (!check && !debug) {
             alert("Please fill out all required fields before submitting.");
         } else {
