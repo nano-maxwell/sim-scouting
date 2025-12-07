@@ -1,25 +1,22 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const SignupPage: React.FC = () => {
+    const navigate = useNavigate();
     const handleSignup = () => {
         console.log("Signup clicked");
     };
 
     const goToLogin = () => {
-        console.log("Go to login page");
+        navigate("/login");
     };
 
     return (
         <div className="flex flex-col items-center justify-start space-y-8 pt-20 min-h-screen">
             <h1 className="font-bold text-white text-4xl">Sign Up</h1>
 
+            <p className="font-bold text-white text-xl">Use your school email. Submissions not attached to a school email will not be accepted.</p>
             <div className="flex flex-col space-y-6 w-80">
-                <input
-                    type="text"
-                    placeholder="Name"
-                    className="bg-gray-800 text-white px-4 py-3 rounded-2xl outline-none"
-                />
-
                 <input
                     type="email"
                     placeholder="Email"

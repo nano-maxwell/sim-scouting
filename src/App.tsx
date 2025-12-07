@@ -3,6 +3,8 @@ import Home from "./pages/Home";
 import MatchForm from "./pages/MatchForm";
 import Footer from "./components/Footer";
 import LocalStorageView from "./pages/LocalStored";
+import LoginPage from "./pages/Login";
+import SignupPage from "./pages/Signup";
 
 function App() {
     return (
@@ -15,6 +17,8 @@ function App() {
                         <Route path="/" element={<Home />} />
                         <Route path="/match" element={<MatchForm />} />
                         <Route path="/stored" element={<LocalStorageView />} />
+                        <Route path="/login" element={<LoginPage />} />
+                        <Route path="/signup" element={<SignupPage />} />
                     </Routes>
                 </div>
                 {/* Footer always at bottom */}
