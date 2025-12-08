@@ -7,7 +7,7 @@ export function generateCookie(name: string, value: string | null, days: number)
     }
     document.cookie = name + "=" + value + expires + "; path=/"
 }
-export function readCookie(name: string) { // this function assumes the cookie exists
+export function readCookie(name: any) { // this function assumes the cookie exists
     let nameEQ = name + "="
     let ca = document.cookie.split(';')
     for (let i = 0; i < ca.length; i++) {
