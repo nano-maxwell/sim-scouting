@@ -37,7 +37,7 @@ const SignupPage: React.FC = () => {
         <div className="flex flex-col items-center justify-start space-y-8 pt-20 min-h-screen">
             <button className={buttonStyle} onClick={goBack}>Back</button>
             <h1 className="font-bold text-white text-4xl">Sign Up</h1>
-            <p className="font-bold text-white text-xl pl-4 pr-4">Use your REAL NAME. You cannot change your name after creating your account</p>
+            <p className="font-bold text-white text-xl pl-4 pr-4">Use your REAL, FULL NAME. You cannot change your name after creating your account</p>
             <p className="font-bold text-white text-xl pl-4 pr-4">Submissions under a false name will not be counted</p>
             <div className="flex flex-col space-y-6 w-80">
                 <input
