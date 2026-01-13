@@ -31,26 +31,10 @@ const MatchForm: React.FC = () => {
     const [matchNumber, setMatchNumber] = useState<number | null>(null);
 
     // Auto values
-    const [passedStartingLine, setPassedStartingLine] = useState<boolean | null>(null);
-    const [autoL4Coral, setAutoL4Coral] = useState(0);
-    const [autoL3Coral, setAutoL3Coral] = useState(0);
-    const [autoL2Coral, setAutoL2Coral] = useState(0);
-    const [autoL1Coral, setAutoL1Coral] = useState(0);
-    const [autoL3AlgaeRemoved, setAutoL3AlgaeRemoved] = useState(0);
-    const [autoL2AlgaeRemoved, setAutoL2AlgaeRemoved] = useState(0);
-    const [autoBargeAlgae, setAutoBargeAlgae] = useState(0);
-    const [autoProcessorAlgae, setAutoProcessorAlgae] = useState(0);
+    
 
     // Teleop values
-    const [playedDefense, setPlayedDefense] = useState<boolean | null>(null);
-    const [teleopL4Coral, setTeleopL4Coral] = useState(0);
-    const [teleopL3Coral, setTeleopL3Coral] = useState(0);
-    const [teleopL2Coral, setTeleopL2Coral] = useState(0);
-    const [teleopL1Coral, setTeleopL1Coral] = useState(0);
-    const [teleopL3AlgaeRemoved, setTeleopL3AlgaeRemoved] = useState(0);
-    const [teleopL2AlgaeRemoved, setTeleopL2AlgaeRemoved] = useState(0);
-    const [teleopBargeAlgae, setTeleopBargeAlgae] = useState(0);
-    const [teleopProcessorAlgae, setTeleopProcessorAlgae] = useState(0);
+    
 
     // Endgame values
     const [endgameAction, setEndgameAction] = useState<string>("");
@@ -59,12 +43,12 @@ const MatchForm: React.FC = () => {
     const [notes, setNotes] = useState<string>("");
 
     const events = [
-        "NE-URI (Week 3)",
-        "NE-Hartford (Week 5)",
-        "NE-DCMP: Sosik"
+        "example 1",
+        "example 2",
+        "example 3"
     ];
 
-    const endgameActions = [
+    const endgameActions = [ // add 
         "None",
         "Parked",
         "Shallow Climb",
@@ -72,15 +56,9 @@ const MatchForm: React.FC = () => {
     ];
 
     const robotErrors = [
-        "Coral stuck in robot",
-        "Algae stuck in robot",
-        "Stuck on game piece",
-        "Fell over",
-        "Component broke",
-        "Battery fell out",
-        "Disabled",
-        "Was not in match",
-        "Other/unknown"
+        "example error 1",
+        "example error 2",
+        "example error 3"
     ];
 
     function changeError(newValue: boolean) {
@@ -98,24 +76,8 @@ const MatchForm: React.FC = () => {
             eventName: eventName,
             teamNumber: teamNumber,
             matchNumber: matchNumber,
-            passedStartingLine: passedStartingLine,
-            autoL4Coral: autoL4Coral,
-            autoL3Coral: autoL3Coral,
-            autoL2Coral: autoL2Coral,
-            autoL1Coral: autoL1Coral,
-            autoL3AlgaeRemoved: autoL3AlgaeRemoved,
-            autoL2AlgaeRemoved: autoL2AlgaeRemoved,
-            autoBargeAlgae: autoBargeAlgae,
-            autoProcessorAlgae: autoProcessorAlgae,
-            playedDefense: playedDefense,
-            teleopL4Coral: teleopL4Coral,
-            teleopL3Coral: teleopL3Coral,
-            teleopL2Coral: teleopL2Coral,
-            teleopL1Coral: teleopL1Coral,
-            teleopL3AlgaeRemoved: teleopL3AlgaeRemoved,
-            teleopL2AlgaeRemoved: teleopL2AlgaeRemoved,
-            teleopBargeAlgae: teleopBargeAlgae,
-            teleopProcessorAlgae: teleopProcessorAlgae,
+            // add your variables in a similar style
+
             endgameAction: endgameAction,
             hadError: hadError,
             robotError: robotError
@@ -151,16 +113,8 @@ const MatchForm: React.FC = () => {
 
     const buttonStyle: string = "bg-sky-600 text-white font-semibold text-xl px-2 py-2 rounded-full hover:bg-sky-700 transition-colors h-15 w-35";
 
-    if (section === "setup") {
-        content = (
-            <>
-                <Dropdown label="Event" placeholder={"Select event"} value={eventName} onChange={setEventName} options={events} />
-                <IntegerInput value={matchNumber} onChange={setMatchNumber} label={"Match Number"} placeholder="e.g. 42" min={1} />
-                <IntegerInput value={teamNumber} onChange={setTeamNumber} label={"Team Number"} placeholder="e.g. 3464" min={1} />
-            </>
-        );
-    } else if (section === "auto") {
-        content = (
+    /*
+    content = (
             <>
                 <BinaryChoice label={"Crossed Starting Line?"} options={["Yes", "No"]} button1Selected={passedStartingLine} onChange={setPassedStartingLine} />
                 <div className="flex flex-row items-center space-x-15">
@@ -180,25 +134,22 @@ const MatchForm: React.FC = () => {
                 </div>
             </>
         );
+    */
+    if (section === "setup") {
+        content = (
+            <>
+            </>
+        );
+    } else if (section === "auto") {
+        content = (
+            <>
+
+            </>
+        );
     } else if (section === "teleop") {
         content = (
             <>
-                <BinaryChoice label={"Played Defense?"} options={["Yes", "No"]} button1Selected={playedDefense} onChange={setPlayedDefense} />
-                <div className="flex flex-row items-center space-x-15 pb-5">
-                    <div className="flex flex-col space-y-5">
-                        <CounterInput label={"Teleop L4 Coral"} max={12 - autoL4Coral} value={teleopL4Coral} onChange={setTeleopL4Coral} />
-                        <CounterInput label={"Teleop L3 Coral"} max={12 - autoL3Coral} value={teleopL3Coral} onChange={setTeleopL3Coral} />
-                        <CounterInput label={"Teleop L2 Coral"} max={12 - autoL2Coral} value={teleopL2Coral} onChange={setTeleopL2Coral} />
-                        <CounterInput label={"Teleop L1 Coral"} value={teleopL1Coral} onChange={setTeleopL1Coral} />
-                    </div>
-
-                    <div className="flex flex-col space-y-5">
-                        <CounterInput label={"Teleop L3 Algae Removed"} max={3 - autoL3AlgaeRemoved} value={teleopL3AlgaeRemoved} onChange={setTeleopL3AlgaeRemoved} />
-                        <CounterInput label={"Teleop L2 Algae Removed"} max={3 - autoL2AlgaeRemoved} value={teleopL2AlgaeRemoved} onChange={setTeleopL2AlgaeRemoved} />
-                        <CounterInput label={"Teleop Barge Algae"} max={18} value={teleopBargeAlgae} onChange={setTeleopBargeAlgae} />
-                        <CounterInput label={"Teleop Processor Algae"} max={18} value={teleopProcessorAlgae} onChange={setTeleopProcessorAlgae} />
-                    </div>
-                </div>
+            
             </>
         );
     } else if (section === "endgame") {

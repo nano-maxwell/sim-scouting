@@ -96,6 +96,7 @@ export async function loginUser(email: string, password: string) {
     try {
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
         console.log("User logged in:", userCredential.user.uid);
+        generateCookie("user", userCredential.user.displayName, 7);
         window.location.href="/"; // same as previous
         return userCredential.user.uid;
     } catch (err: any) {
