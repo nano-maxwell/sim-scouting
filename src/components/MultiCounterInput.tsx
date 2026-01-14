@@ -44,6 +44,22 @@ const MultiCounterInput: React.FC<MultiCounterInputProps> = ({
     }
   };
 
+  const decten = () => {
+    if (value > min + 10) {
+      onChange(value - 10);
+    } else {
+      onChange(0);
+    }
+  };
+
+  const incten = () => {
+    if (value < max - 10) {
+      onChange(value + 10);
+    } else {
+      onChange(max);
+    }
+  };
+
   let boxLabel = null;
   if (label != null) {
     boxLabel = (
@@ -55,6 +71,12 @@ const MultiCounterInput: React.FC<MultiCounterInputProps> = ({
     <div className="flex flex-col items-center space-y-2">
       {boxLabel}
       <div className="flex flex-row items-center space-x-2 ">
+        <button
+          onClick={decten}
+          className="bg-sky-600 text-white font-semibold text-xl px-3 py-1 rounded-full hover:bg-sky-700 transition-colors h-12.5 w-12.5"
+        >
+          −10
+        </button>
         <button
           onClick={decfive}
           className="bg-sky-600 text-white font-semibold text-xl px-3 py-1 rounded-full hover:bg-sky-700 transition-colors h-12.5 w-12.5"
@@ -86,6 +108,12 @@ const MultiCounterInput: React.FC<MultiCounterInputProps> = ({
           className="bg-sky-600 text-white font-semibold text-xl px-3 py-1 rounded-full hover:bg-sky-700 transition-colors h-12.5 w-12.5"
         >
           +5
+        </button>
+        <button
+          onClick={incten}
+          className="bg-sky-600 text-white font-semibold text-xl px-3 py-1 rounded-full hover:bg-sky-700 transition-colors h-12.5 w-12.5"
+        >
+          +10
         </button>
       </div>
     </div>
