@@ -7,7 +7,10 @@ interface ActionComponentProps {
     onDelete: () => void;
 }
 
-const ActionComponent: React.FC<ActionComponentProps> = ({ onSubmit, onDelete }) => {
+const ActionComponent: React.FC<ActionComponentProps> = ({
+    onSubmit,
+    onDelete,
+}) => {
     const navigate = useNavigate();
     const goBack = () => {
         navigate("/");
@@ -34,7 +37,6 @@ const ActionComponent: React.FC<ActionComponentProps> = ({ onSubmit, onDelete })
                 Back
             </button>
         </div>
-
     );
 };
 
@@ -65,20 +67,35 @@ const LocalStorageView: React.FC = () => {
     const submitItem = () => {
         if (!selectedKey) return;
         let json = JSON.parse(value);
-        writeData(`${json.teamNumber?.toString()}/${json.matchNumber?.toString()}`, json);
+        writeData(
+            `${json.teamNumber?.toString()}/${json.matchNumber?.toString()}`,
+            json
+        );
         deleteItem();
     };
     const makeValue = (val: string) => {
         let parsed = JSON.parse(val);
-        return "Team Number: " + parsed.teamNumber + "\nMatch Number: " + parsed.matchNumber + "\n";
-    }
+        return (
+            "Team Number: " +
+            parsed.teamNumber +
+            "\nMatch Number: " +
+            parsed.matchNumber +
+            "\n"
+        );
+    };
 
     return (
         <div className="flex flex-col items-center justify-start space-y-6 pt-12">
-            <h1 className="font-bold text-white text-4xl">LocalStorage Viewer </h1>
-            <p className="font-bold text-white">scoutData-(teamNumber)-(matchNumber)</p>
+            <h1 className="font-bold text-white text-4xl">
+                LocalStorage Viewer{" "}
+            </h1>
+            <p className="font-bold text-white">
+                scoutData-(teamNumber)-(matchNumber)
+            </p>
             <div className="flex flex-col items-center space-y-4 pb-8">
-                <h2 className="text-white text-xl">Select a key to view/edit</h2>
+                <h2 className="text-white text-xl">
+                    Select a key to view/edit
+                </h2>
 
                 <select
                     className="bg-gray-800 text-white px-4 py-2 rounded-xl"
@@ -87,7 +104,9 @@ const LocalStorageView: React.FC = () => {
                 >
                     <option value="">-- Select Key --</option>
                     {keys.map((k) => (
-                        <option key={k} value={k}>{k}</option>
+                        <option key={k} value={k}>
+                            {k}
+                        </option>
                     ))}
                 </select>
 
@@ -105,13 +124,13 @@ const LocalStorageView: React.FC = () => {
                         onChange={(e) => setValue(e.target.value)}
                     />
                 )}
-                <p className="text-white">Make sure the textbox above has a value before submitting or deleting</p>
+                <p className="text-white">
+                    Make sure the textbox above has a value before submitting or
+                    deleting
+                </p>
             </div>
 
-            <ActionComponent
-                onSubmit={submitItem}
-                onDelete={deleteItem}
-            />
+            <ActionComponent onSubmit={submitItem} onDelete={deleteItem} />
         </div>
     );
 };
