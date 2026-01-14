@@ -49,10 +49,10 @@ const MatchForm: React.FC = () => {
   const [endgameFuel, endgameSetFuel] = useState(0);
   const [endgameClimbLevel, endgameSetClimbLevel] = useState("0");
 
-  /*const [endgameAction, setEndgameAction] = useState<string>("");
+  const [endgameAction, setEndgameAction] = useState<string>("");
   const [hadError, setHadError] = useState<boolean | null>(null);
   const [robotError, setRobotError] = useState<string>("");
-  const [notes, setNotes] = useState<string>("");*/
+  const [notes, setNotes] = useState<string>("");
 
   const events = ["example 1", "example 2", "example 3"];
 
