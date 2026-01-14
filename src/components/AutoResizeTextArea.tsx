@@ -6,7 +6,11 @@ interface Props {
     placeholder?: string;
 }
 
-const AutoResizeTextarea: React.FC<Props> = ({ value, onChange, placeholder }) => {
+const AutoResizeTextarea: React.FC<Props> = ({
+    value,
+    onChange,
+    placeholder,
+}) => {
     const textareaRef = useRef<HTMLTextAreaElement>(null);
 
     const handleInput = (e: React.FormEvent<HTMLTextAreaElement>) => {
