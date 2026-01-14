@@ -30,8 +30,8 @@ const MatchForm: React.FC = () => {
   const [sent, setSent] = useState<boolean>(true);
   // Setup values
   const [eventName, setEventName] = useState<string>("");
-  const [teamNumber, setTeamNumber] = useState<number | null>(null);
-  const [matchNumber, setMatchNumber] = useState<number | null>(null);
+  const [teamNumber, setTeamNumber] = useState(0);
+  const [matchNumber, setMatchNumber] = useState(0);
 
   // Auto values
 
