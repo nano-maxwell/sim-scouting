@@ -1,8 +1,8 @@
 import React from "react";
 
 interface IntegerInputProps {
-  value: number | null; // current value
-  onChange: (newValue: number | null) => void; // callback
+  value: number; // current value
+  onChange: (newValue: number) => void; // callback
   placeholder?: string;
   min?: number;
   max?: number;

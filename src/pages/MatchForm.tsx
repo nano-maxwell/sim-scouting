@@ -147,7 +147,7 @@ const MatchForm: React.FC = () => {
         />
         <IntegerInput
           value={matchNumber}
-          onChange={setMatchNumber}
+          onChange={(e) => setMatchNumber(e.target.value)}
           label={"Match Number"}
           placeholder="e.g. 42"
           min={1}
