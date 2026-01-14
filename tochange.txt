@@ -1,0 +1,11 @@
+Auto fuel scored
+Auto climb
+Auto fail climb
+
+Teleop fuel scored
+Outpost fuel scored
+Teleop stuck?
+
+Endgame fuel scored
+Endgame climb level
+Endgame fail climb
