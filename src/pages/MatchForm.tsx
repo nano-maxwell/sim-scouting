@@ -24,7 +24,7 @@ const MatchForm: React.FC = () => {
         }
     }, []); // empty dependency array so only runs once
     const [section, setSection] = useState<
-        "setup" | "auto" | "teleop" | "endgame"
+        "setup" | "auto" | "teleop" | "endgame" | "errors"
     >("setup");
 
     // this boolean is used to show a message if the data was not sent
@@ -66,9 +66,12 @@ const MatchForm: React.FC = () => {
     ];
 
     const robotErrors = [
-        "example error 1",
-        "example error 2",
-        "example error 3",
+        "Intake issues",
+        "Climb Failed",
+        "Robot unresponsive",
+        "Robot part fell off",
+        "Did not participate",
+        "Other",
     ];
 
     function changeError(newValue: boolean) {
@@ -201,12 +204,6 @@ const MatchForm: React.FC = () => {
                     onChange={teleopSetOutpostScored}
                     label={"Outpost fuel scored (person throwing fuel)"}
                 />
-                <BinaryChoice
-                    label={"Fuel jam?"}
-                    options={["no", "yes"]}
-                    button1Selected={teleopFuelStuck}
-                    onChange={teleopsetFuelStuck}
-                />
             </>
         );
     } else if (section === "endgame") {
@@ -225,12 +222,40 @@ const MatchForm: React.FC = () => {
                     label={"Endgame Climb Level"}
                     onChange={endgameSetClimbLevel}
                 />
+            </>
+        );
+    } else if (section === "errors") {
+        content = (
+            <>
                 <CheckboxDropdown
                     value={"will ding"}
                     options={["will dingaling is gooning"]}
                     onChange={setEndgameAction}
                     placeholder="will ding"
                 />
+                <button className={buttonStyle} onClick={submitData}>
+                    Submit
+                </button>
+                {!sent ? (
+                    <div className="flex flex-col items-center space-y-2 ">
+                        <h3 className="font-semibold text-red-800 text-2xl pb-1">
+                            If you are seeing this message, you either have poor
+                            connectivity, or you have encountered an error. If
+                            you encountered an error, a message should have
+                            shown up stating you had an error. If no message
+                            showed up, then you're connectivity is poor. If your
+                            data gets sent, then this page will automatically
+                            close. If you need to fill out another form, you may
+                            press the back button, but remember to submit later
+                            in the "view local storage" page.
+                        </h3>
+                        <button className={buttonStyle} onClick={goBack}>
+                            Back
+                        </button>
+                    </div>
+                ) : (
+                    <></>
+                )}
             </>
         );
     }
@@ -267,6 +292,12 @@ const MatchForm: React.FC = () => {
                     onClick={() => setSection("endgame")}
                 >
                     Endgame
+                </button>
+                <button
+                    className={tab("errors")}
+                    onClick={() => setSection("errors")}
+                >
+                    Errors
                 </button>
             </div>
             {content}

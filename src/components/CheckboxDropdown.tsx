@@ -29,6 +29,7 @@ const Dropdown: React.FC<DropdownProps> = ({ label, placeholder, options }) => {
                                 (showCheckboxes) => !showCheckboxes
                             )
                         }
+                        className="cursor-pointer"
                     >
                         Select Options
                     </option>
