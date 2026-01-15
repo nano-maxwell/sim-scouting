@@ -19,15 +19,12 @@ const IntegerInput: React.FC<IntegerInputProps> = ({
 }) => {
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const raw = e.target.value;
-
         // Only allow digits or empty string
         if (!/^\d*$/.test(raw)) return;
-
         // Parse number or null if empty
         let newValue = raw === "" ? 0 : parseInt(raw, 10);
-
         // Respect min/max if number
-        if (newValue !== null) {
+        if (newValue !== 0) {
             if (min !== undefined && newValue < min) newValue = min;
             if (max !== undefined && newValue > max) newValue = max;
         }

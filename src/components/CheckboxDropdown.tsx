@@ -1,52 +1,51 @@
 import React, { useState } from "react";
 
 interface DropdownProps {
-  value: string;
-  options: string[];
-  label?: string;
-  placeholder?: string;
-  onChange: (newValue: string) => void;
+    value: string;
+    options: string[];
+    label?: string;
+    placeholder?: string;
+    onChange: (newValue: string) => void;
 }
 
-const Dropdown: React.FC<DropdownProps> = ({ label }) => {
-  const [showCheckboxes, setShowCheckboxes] = useState(false);
-  let boxLabel = null;
-  if (label != null) {
-    boxLabel = (
-      <h3 className="font-semibold text-white text-2xl pb-1">{label}</h3>
+const Dropdown: React.FC<DropdownProps> = ({ label, placeholder, options }) => {
+    const [showCheckboxes, setShowCheckboxes] = useState(false);
+    let boxLabel = null;
+    if (label != null) {
+        boxLabel = (
+            <h3 className="font-semibold text-white text-2xl pb-1">{label}</h3>
+        );
+    }
+
+    return (
+        <div className="flex flex-col items-center space-y-2">
+            {boxLabel}
+
+            <div className="text-white text-l pl-8 pr-8 p-4 flex-col items-start flex justify-center w-60 bg-gray-700 rounded-full focus-within:outline-auto relative">
+                <div className="relative">
+                    <option
+                        onClick={() =>
+                            setShowCheckboxes(
+                                (showCheckboxes) => !showCheckboxes
+                            )
+                        }
+                    >
+                        Select Options
+                    </option>
+                </div>
+                <div style={{ display: showCheckboxes ? "block" : "none" }}>
+                    {options.map((option) => (
+                        <>
+                            <label className="text-white ">
+                                <input type="checkbox" /> {option}
+                            </label>
+                            <br></br>
+                        </>
+                    ))}
+                </div>
+            </div>
+        </div>
     );
-  }
-
-  /*<button >asd</button>*/
-  return (
-    <div className="flex flex-col items-center space-y-2">
-      {boxLabel}
-
-      <div className="flex justify-center w-60 bg-gray-700 rounded-full focus-within:outline-auto relative">
-        <div className="relative">
-          <select
-            onClick={() =>
-              setShowCheckboxes((showCheckboxes) => !showCheckboxes)
-            }
-          >
-            <option>Select Options</option>
-          </select>
-          <div className="absolute left-0px right-0px top-0px bottom-0px" />
-        </div>
-        <div style={{ display: showCheckboxes ? "block" : "none" }}>
-          <label>
-            <input type="checkbox" /> Option 1
-          </label>
-          <label>
-            <input type="checkbox" /> Option 2
-          </label>
-          <label>
-            <input type="checkbox" /> Option 3
-          </label>
-        </div>
-      </div>
-    </div>
-  );
 };
 
 export default Dropdown;

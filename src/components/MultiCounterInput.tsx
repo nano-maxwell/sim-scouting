@@ -12,7 +12,7 @@ interface MultiCounterInputProps {
 const MultiCounterInput: React.FC<MultiCounterInputProps> = ({
   value = 0,
   onChange,
-  min = 0,
+  min = -1,
   max = Infinity,
   label,
 }) => {
@@ -101,19 +101,19 @@ const MultiCounterInput: React.FC<MultiCounterInputProps> = ({
           onClick={increment}
           className="bg-sky-600 text-white font-semibold text-xl px-3 py-1 rounded-full hover:bg-sky-700 transition-colors h-12.5 w-12.5"
         >
-          1
+          +
         </button>
         <button
           onClick={incfive}
           className="bg-sky-600 text-white font-semibold text-xl px-3 py-1 rounded-full hover:bg-sky-700 transition-colors h-12.5 w-12.5"
         >
-          5
+          +5
         </button>
         <button
           onClick={incten}
-          className="bg-sky-600 text-white font-semibold text-xl px-3 py-1 rounded-full hover:bg-sky-700 transition-colors h-12.5 w-12.5"
+          className="bg-sky-600 text-white font-semibold text-xl px-1 py-1 rounded-full hover:bg-sky-700 transition-colors h-12.5 w-12.5"
         >
-          10
+          +10
         </button>
       </div>
     </div>
