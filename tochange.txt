@@ -3,3 +3,5 @@ teleop played defense
 teleop collected fuel during inactive
 auto collected fuel
 add textbox for extra notes 
+
+Add subsections within teleop for alliance shifts, hub active or inactive
