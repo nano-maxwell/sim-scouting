@@ -73,19 +73,19 @@ const MultiCounterInput: React.FC<MultiCounterInputProps> = ({
       <div className="flex 2xl:flex-row xl:flex-row lg:flex-col md:flex-col sm:flex-col items-center space-x-2">
         <button
           onClick={decten}
-          className="bg-sky-600 text-white font-semibold text-xl px-3 py-3 rounded-full hover:bg-sky-700 transition-colors h-12.5 w-12.5"
+          className="bg-sky-600 text-white font-semibold text-xl px-3 my-1 rounded-full hover:bg-sky-700 transition-colors h-12.5 w-12.5"
         >
           -10
         </button>
         <button
           onClick={decfive}
-          className="bg-sky-600 text-white font-semibold text-xl px-3 py-3 rounded-full hover:bg-sky-700 transition-colors h-12.5 w-12.5"
+          className="bg-sky-600 text-white font-semibold text-xl px-3 my-1 rounded-full hover:bg-sky-700 transition-colors h-12.5 w-12.5"
         >
           -5
         </button>
         <button
           onClick={decrement}
-          className="bg-sky-600 text-white font-semibold text-xl px-3 py-3 rounded-full hover:bg-sky-700 transition-colors h-12.5 w-12.5"
+          className="bg-sky-600 text-white font-semibold text-xl px-3 my-1 rounded-full hover:bg-sky-700 transition-colors h-12.5 w-12.5"
         >
           -
         </button>
@@ -99,19 +99,19 @@ const MultiCounterInput: React.FC<MultiCounterInputProps> = ({
         />
         <button
           onClick={increment}
-          className="bg-sky-600 text-white font-semibold text-xl px-3 py-3 rounded-full hover:bg-sky-700 transition-colors h-12.5 w-12.5"
+          className="bg-sky-600 text-white font-semibold text-xl px-3 my-1 rounded-full hover:bg-sky-700 transition-colors h-12.5 w-12.5"
         >
           +
         </button>
         <button
           onClick={incfive}
-          className="bg-sky-600 text-white font-semibold text-xl px-3 py-3 rounded-full hover:bg-sky-700 transition-colors h-12.5 w-12.5"
+          className="bg-sky-600 text-white font-semibold text-xl px-3 my-1 rounded-full hover:bg-sky-700 transition-colors h-12.5 w-12.5"
         >
           +5
         </button>
         <button
           onClick={incten}
-          className="bg-sky-600 text-white font-semibold text-xl px-1 py-3 rounded-full hover:bg-sky-700 transition-colors h-12.5 w-12.5"
+          className="bg-sky-600 text-white font-semibold text-xl px-3 my-1 rounded-full hover:bg-sky-700 transition-colors h-12.5 w-12.5"
         >
           +10
         </button>
