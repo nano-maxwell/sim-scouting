@@ -44,6 +44,11 @@ const MatchForm: React.FC = () => {
     // Teleop values
     const [teleopShift, setTeleopShift] = useState(1);
 
+    const [shift1HubActive, setShift1HubActive] = useState(false);
+    const [shift2HubActive, setShift2HubActive] = useState(false);
+    const [shift3HubActive, setShift3HubActive] = useState(false);
+    const [shift4HubActive, setShift4HubActive] = useState(false);
+
     const [shift1Fuel, setShift1Fuel] = useState(0);
     const [shift2Fuel, setShift2Fuel] = useState(0);
     const [shift3Fuel, setShift3Fuel] = useState(0);
@@ -219,6 +224,12 @@ const MatchForm: React.FC = () => {
         if (teleopShift === 1) {
             shiftcontent = (
                 <>
+                    <BinaryChoice
+                        label={"Hub Active?"}
+                        options={["yes", "no"]}
+                        onChange={setShift1HubActive}
+                        button1Selected={shift1HubActive}
+                    />
                     <MultiCounterInput
                         min={0}
                         max={999}
