@@ -8,9 +8,8 @@ interface DropdownProps {
   onChange: (newValue: string) => void;
 }
 
-const [showCheckboxes, setShowCheckboxes] = useState(false);
-
 const Dropdown: React.FC<DropdownProps> = ({ label }) => {
+  const [showCheckboxes, setShowCheckboxes] = useState(false);
   let boxLabel = null;
   if (label != null) {
     boxLabel = (
