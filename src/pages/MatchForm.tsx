@@ -55,7 +55,7 @@ const MatchForm: React.FC = () => {
     const [robotError, setRobotError] = useState<string>("");
     const [notes, setNotes] = useState<string>("");
 
-    const events = ["example 1", "example 2", "example 3"];
+    const events = ["NE District Minuteman Event", "NE District URI Event"];
 
     const endgameActions = [
         // add

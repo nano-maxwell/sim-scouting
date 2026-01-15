@@ -21,18 +21,14 @@ const Dropdown: React.FC<DropdownProps> = ({ label, placeholder, options }) => {
         <div className="flex flex-col items-center space-y-2">
             {boxLabel}
 
-            <div className="text-white text-l pl-8 pr-8 p-4 flex-col items-start flex justify-center w-60 bg-gray-700 rounded-full focus-within:outline-auto relative">
+            <div
+                onClick={() =>
+                    setShowCheckboxes((showCheckboxes) => !showCheckboxes)
+                }
+                className="cursor-pointer text-white text-l pl-8 pr-8 p-4 flex-col items-start flex justify-center w-60 bg-gray-700 rounded-full focus-within:outline-auto relative"
+            >
                 <div className="relative">
-                    <option
-                        onClick={() =>
-                            setShowCheckboxes(
-                                (showCheckboxes) => !showCheckboxes
-                            )
-                        }
-                        className="cursor-pointer"
-                    >
-                        Select Options
-                    </option>
+                    Select Options
                 </div>
             </div>
             <div
