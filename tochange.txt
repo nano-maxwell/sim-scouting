@@ -1,11 +1,5 @@
-Auto fuel scored
-Auto climb
-Auto fail climb
-
-Teleop fuel scored
-Outpost fuel scored
-Teleop stuck?
-
-Endgame fuel scored
-Endgame climb level
-Endgame fail climb
+Cross bump or go under trench for both teleop and auto
+teleop played defense
+teleop collected fuel during inactive
+auto collected fuel
+add textbox for extra notes 

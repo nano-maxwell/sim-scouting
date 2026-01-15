@@ -34,16 +34,19 @@ const Dropdown: React.FC<DropdownProps> = ({ label, placeholder, options }) => {
                         Select Options
                     </option>
                 </div>
-                <div style={{ display: showCheckboxes ? "block" : "none" }}>
-                    {options.map((option) => (
-                        <>
-                            <label className="text-white ">
-                                <input type="checkbox" /> {option}
-                            </label>
-                            <br></br>
-                        </>
-                    ))}
-                </div>
+            </div>
+            <div
+                style={{ display: showCheckboxes ? "block" : "none" }}
+                className="bg-gray-700 p-4 border-gray-200"
+            >
+                {options.map((option) => (
+                    <>
+                        <label className="text-white ">
+                            <input type="checkbox" /> {option}
+                        </label>
+                        <br></br>
+                    </>
+                ))}
             </div>
         </div>
     );
