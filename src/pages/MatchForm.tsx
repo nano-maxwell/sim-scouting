@@ -225,6 +225,12 @@ const MatchForm: React.FC = () => {
                     label={"Endgame Climb Level"}
                     onChange={endgameSetClimbLevel}
                 />
+                <CheckboxDropdown
+                    value={"will ding"}
+                    options={["will dingaling is gooning"]}
+                    onChange={setEndgameAction}
+                    placeholder="will ding"
+                />
             </>
         );
     }
