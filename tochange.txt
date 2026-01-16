@@ -5,3 +5,16 @@ auto collected fuel
 add textbox for extra notes 
 
 Add subsections within teleop for alliance shifts, hub active or inactive
+
+Pit Scouting?:
+Team Number
+Robot Picture
+Chassis size
+Height
+Max Height
+Motor Type
+Max Capacity
+Endgame Ability
+Driver Experience
+Ways to interact with pieces(shoot, collect, etc.)
+other stuff like climbing speed and more
