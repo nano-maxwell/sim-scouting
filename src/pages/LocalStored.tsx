@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { writeData } from "../scripts/firebase";
+import ReactJsonView from '@microlink/react-json-view'
 
 interface ActionComponentProps {
     onSubmit: () => void;
@@ -118,10 +119,8 @@ const LocalStorageView: React.FC = () => {
                 </button>
 
                 {selectedKey && (
-                    <textarea
-                        className="bg-gray-900 text-white w-80 h-40 p-3 rounded-xl"
-                        value={value}
-                        onChange={(e) => setValue(e.target.value)}
+                    <ReactJsonView 
+                        src={JSON.parse(value)}
                     />
                 )}
                 <p className="text-white">
