@@ -6,7 +6,7 @@ add textbox for extra notes
 
 Add subsections within teleop for alliance shifts, hub active or inactive
 
-Pit Scouting?:
+Pit Scouting?: Log to see who we haven't or have scouted
 Team Number
 Robot Picture
 Chassis size
@@ -18,3 +18,20 @@ Endgame Ability
 Driver Experience
 Ways to interact with pieces(shoot, collect, etc.)
 other stuff like climbing speed and more
+
+Scouting Schedule
+
+Team Statistics: Averages
+Auto Points
+Shift 1,2,3,4 points
+Endgame Points
+reliability %
+average points per game
+Notes like defense or ball hoarding or errors like broken stuff
+Average Ranking points per game
+Accuracy
+
+Match data(probably we have it done)
+Overall team data(sums and matches played probably)
+Some charts like Ben Lee had(can be useful when just looking at who is better overall)
+GAME PREDICTOR FOR OUR GAMBLING
