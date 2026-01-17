@@ -74,7 +74,6 @@ const LocalStorageView: React.FC = () => {
             `${json.teamNumber?.toString()}/${json.matchNumber?.toString()}`,
             json
         );
-        deleteItem();
     };
     const makeValue = (val: string) => {
         let parsed = JSON.parse(val);

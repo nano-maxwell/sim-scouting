@@ -17,7 +17,7 @@ const MultiCounterInput: React.FC<MultiCounterInputProps> = ({
     max = Infinity,
     label,
 }) => {
-    let isMobile = isMobileDevice
+    let isMobile = isMobileDevice;
     const increment = () => {
         if (value < max) {
             onChange(value + 1);
@@ -73,93 +73,101 @@ const MultiCounterInput: React.FC<MultiCounterInputProps> = ({
         <div className="flex flex-col items-center space-y-2 h-auto">
             {boxLabel}
             <div className="flex 2xl:flex-row xl:flex-row lg:flex-col md:flex-col sm:flex-col xs:flex-col 2xs:flex-col items-center space-x-2">
-                {isMobile ? (<><button
-                    onClick={decten}
-                    className="bg-sky-600 text-white font-semibold text-xl px-3 my-1 rounded-full hover:bg-sky-700 transition-colors h-12.5 w-12.5"
-                >
-                    -10
-                </button>
-                <button
-                    onClick={decfive}
-                    className="bg-sky-600 text-white font-semibold text-xl px-2 my-1 rounded-full hover:bg-sky-700 transition-colors h-12.5 w-12.5"
-                >
-                    -5
-                </button>
-                <button
-                    onClick={decrement}
-                    className="bg-sky-600 text-white font-semibold text-xl px-3 my-1 rounded-full hover:bg-sky-700 transition-colors h-12.5 w-12.5"
-                >
-                    -1
-                </button>
-                <IntegerInput
-                    min={0}
-                    max={max}
-                    label={""}
-                    placeholder={"hello :)"}
-                    onChange={onChange}
-                    value={value || 0}
-                />
-                <button
-                    onClick={increment}
-                    className="bg-sky-600 text-white font-semibold text-xl px-3 my-1 rounded-full hover:bg-sky-700 transition-colors h-12.5 w-12.5"
-                >
-                    +1
-                </button>
-                <button
-                    onClick={incfive}
-                    className="bg-sky-600 text-white font-semibold text-xl px-2 my-1 rounded-full hover:bg-sky-700 transition-colors h-12.5 w-12.5"
-                >
-                    +5
-                </button>
-                <button
-                    onClick={incten}
-                    className="bg-sky-600 text-white font-semibold text-xl px-1 my-1 rounded-full hover:bg-sky-700 transition-colors h-12.5 w-12.5"
-                >
-                    +10
-                </button></>) : (<><button
-                    onClick={decten}
-                    className="bg-sky-600 text-white font-semibold text-xl px-3 my-1 rounded-full hover:bg-sky-700 transition-colors h-12.5 w-12.5"
-                >
-                    -10
-                </button>
-                <button
-                    onClick={decfive}
-                    className="bg-sky-600 text-white font-semibold text-xl px-2 my-1 rounded-full hover:bg-sky-700 transition-colors h-12.5 w-12.5"
-                >
-                    -5
-                </button>
-                <button
-                    onClick={decrement}
-                    className="bg-sky-600 text-white font-semibold text-xl px-3 my-1 rounded-full hover:bg-sky-700 transition-colors h-12.5 w-12.5"
-                >
-                    -1
-                </button>
-                <IntegerInput
-                    min={0}
-                    max={max}
-                    label={""}
-                    placeholder={"hello :)"}
-                    onChange={onChange}
-                    value={value || 0}
-                />
-                <button
-                    onClick={increment}
-                    className="bg-sky-600 text-white font-semibold text-xl px-3 my-1 rounded-full hover:bg-sky-700 transition-colors h-12.5 w-12.5"
-                >
-                    +1
-                </button>
-                <button
-                    onClick={incfive}
-                    className="bg-sky-600 text-white font-semibold text-xl px-2 my-1 rounded-full hover:bg-sky-700 transition-colors h-12.5 w-12.5"
-                >
-                    +5
-                </button>
-                <button
-                    onClick={incten}
-                    className="bg-sky-600 text-white font-semibold text-xl px-1 my-1 rounded-full hover:bg-sky-700 transition-colors h-12.5 w-12.5"
-                >
-                    +10
-                </button></>)}
+                {isMobile ? (
+                    <>
+                        <button
+                            onClick={decten}
+                            className="bg-sky-600 text-white font-semibold text-xl px-3 my-1 rounded-full hover:bg-sky-700 transition-colors h-12.5 w-12.5"
+                        >
+                            -10
+                        </button>
+                        <button
+                            onClick={decfive}
+                            className="bg-sky-600 text-white font-semibold text-xl px-2 my-1 rounded-full hover:bg-sky-700 transition-colors h-12.5 w-12.5"
+                        >
+                            -5
+                        </button>
+                        <button
+                            onClick={decrement}
+                            className="bg-sky-600 text-white font-semibold text-xl px-3 my-1 rounded-full hover:bg-sky-700 transition-colors h-12.5 w-12.5"
+                        >
+                            -1
+                        </button>
+                        <IntegerInput
+                            min={0}
+                            max={max}
+                            label={""}
+                            placeholder={"hello :)"}
+                            onChange={onChange}
+                            value={value || 0}
+                        />
+                        <button
+                            onClick={increment}
+                            className="bg-sky-600 text-white font-semibold text-xl px-3 my-1 rounded-full hover:bg-sky-700 transition-colors h-12.5 w-12.5"
+                        >
+                            +1
+                        </button>
+                        <button
+                            onClick={incfive}
+                            className="bg-sky-600 text-white font-semibold text-xl px-2 my-1 rounded-full hover:bg-sky-700 transition-colors h-12.5 w-12.5"
+                        >
+                            +5
+                        </button>
+                        <button
+                            onClick={incten}
+                            className="bg-sky-600 text-white font-semibold text-xl px-1 my-1 rounded-full hover:bg-sky-700 transition-colors h-12.5 w-12.5"
+                        >
+                            +10
+                        </button>
+                    </>
+                ) : (
+                    <>
+                        <button
+                            onClick={decten}
+                            className="bg-sky-600 text-white font-semibold text-xl px-3 my-1 rounded-full hover:bg-sky-700 transition-colors h-12.5 w-12.5"
+                        >
+                            -10
+                        </button>
+                        <button
+                            onClick={decfive}
+                            className="bg-sky-600 text-white font-semibold text-xl px-2 my-1 rounded-full hover:bg-sky-700 transition-colors h-12.5 w-12.5"
+                        >
+                            -5
+                        </button>
+                        <button
+                            onClick={decrement}
+                            className="bg-sky-600 text-white font-semibold text-xl px-3 my-1 rounded-full hover:bg-sky-700 transition-colors h-12.5 w-12.5"
+                        >
+                            -1
+                        </button>
+                        <IntegerInput
+                            min={0}
+                            max={max}
+                            label={""}
+                            placeholder={"hello :)"}
+                            onChange={onChange}
+                            value={value || 0}
+                        />
+                        <button
+                            onClick={increment}
+                            className="bg-sky-600 text-white font-semibold text-xl px-3 my-1 rounded-full hover:bg-sky-700 transition-colors h-12.5 w-12.5"
+                        >
+                            +1
+                        </button>
+                        <button
+                            onClick={incfive}
+                            className="bg-sky-600 text-white font-semibold text-xl px-2 my-1 rounded-full hover:bg-sky-700 transition-colors h-12.5 w-12.5"
+                        >
+                            +5
+                        </button>
+                        <button
+                            onClick={incten}
+                            className="bg-sky-600 text-white font-semibold text-xl px-1 my-1 rounded-full hover:bg-sky-700 transition-colors h-12.5 w-12.5"
+                        >
+                            +10
+                        </button>
+                    </>
+                )}
             </div>
         </div>
     );

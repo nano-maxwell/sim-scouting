@@ -6,7 +6,6 @@ import NumericInput from "../components/IntegerInput";
 import MultiCounterInput from "../components/MultiCounterInput";
 import IntegerInput from "../components/IntegerInput";
 import Dropdown from "../components/Dropdown";
-import CheckboxDropdown from "../components/CheckboxDropdown";
 import AutoResizeTextarea from "../components/AutoResizeTextArea";
 import { writeData } from "../scripts/firebase";
 import { readCookie } from "../scripts/user";
@@ -29,9 +28,11 @@ const MatchForm: React.FC = () => {
         "setup" | "auto" | "teleop" | "endgame" | "errors"
     >("setup");
 
+    const [showCheckboxes, setShowCheckboxes] = useState<boolean>(false);
     // this boolean is used to show a message if the data was not sent
     const [sent, setSent] = useState<boolean>(true);
     // Setup values
+    const [scoutingTeam, setScoutingTeam] = useState(0);
     const [eventName, setEventName] = useState<string>("");
     const [teamNumber, setTeamNumber] = useState(0);
     const [matchNumber, setMatchNumber] = useState(0);
@@ -95,7 +96,7 @@ const MatchForm: React.FC = () => {
         "Other",
     ];
 
-    let robotErrorsCheck = {
+    let robotErrorsCheck: Record<string, boolean> = {
         "Intake issues": false,
         "Climb Failed": false,
         "Robot unresponsive": false,
@@ -113,7 +114,6 @@ const MatchForm: React.FC = () => {
         }
     }
 
-    console.log(isMobileDevice);
     async function submitData() {
         //make sure certain fields are filled out
         let debug = true;
@@ -125,12 +125,13 @@ const MatchForm: React.FC = () => {
             endgameAction !== "";
 
         const data = {
+            scoutingTeam: scoutingTeam,
             // sample data object,
             name: readCookie("user"),
             eventName: eventName,
             teamNumber: teamNumber,
             matchNumber: matchNumber,
-            
+
             autoBump: autoBump,
             autoUnderTrench: autoUnderTrench,
             autoFuel: autoFuel,
@@ -154,8 +155,7 @@ const MatchForm: React.FC = () => {
 
             notes: notes,
             endgameAction: endgameAction,
-            hadError: hadError,
-            robotError: robotError,
+            robotError: robotErrorsCheck, 
         };
         /*
         The path for block of data will be submitted as follows:
@@ -167,13 +167,13 @@ const MatchForm: React.FC = () => {
         } else {
             localStorage.setItem(
                 `scoutData-${teamNumber}-${matchNumber}`,
-                JSON.stringify(data)
+                JSON.stringify(data),
             );
             setSent(false);
             if (
                 !(await writeData(
                     `${teamNumber?.toString()}/${matchNumber?.toString()}`,
-                    data
+                    data,
                 ))
             ) {
                 setSent(true);
@@ -208,6 +208,13 @@ const MatchForm: React.FC = () => {
                     value={eventName}
                     onChange={setEventName}
                     options={events}
+                />
+                <IntegerInput
+                    value={scoutingTeam}
+                    onChange={setScoutingTeam}
+                    label={"Your team number"}
+                    placeholder="e.g. 3464"
+                    min={1}
                 />
                 <IntegerInput
                     value={matchNumber}
@@ -392,7 +399,8 @@ const MatchForm: React.FC = () => {
                 </p>
                 {shiftcontent}
                 <p className="font-bold text-white text-l pb-1">
-                    If the robot failed to lower from climb, state that in the errors tab
+                    If the robot failed to lower from climb, state that in the
+                    errors tab
                 </p>
             </>
         );
@@ -417,17 +425,43 @@ const MatchForm: React.FC = () => {
     } else if (section === "errors") {
         content = (
             <>
-                <CheckboxDropdown
-                    value={"will ding"}
-                    options={robotErrors}
-                    onChange={setEndgameAction}
-                    placeholder="will ding"
-                />
+                <div className="flex flex-col items-center space-y-2">
+                    <div
+                        onClick={() =>
+                            setShowCheckboxes(
+                                (showCheckboxes) => !showCheckboxes,
+                            )
+                        }
+                        className="cursor-pointer text-white text-l pl-8 pr-8 p-4 flex-col items-start flex justify-center w-60 bg-gray-700 rounded-full focus-within:outline-auto relative"
+                    >
+                        <div className="relative">Select Robot Errors</div>
+                    </div>
+                    <div
+                        style={{ display: showCheckboxes ? "block" : "none" }}
+                        className="bg-gray-700 p-4 border-gray-200"
+                    >
+                        {robotErrors.map((option) => (
+                            <>
+                                <label className="text-white ">
+                                    <input
+                                        type="checkbox"
+                                        onClick={() => {
+                                            robotErrorsCheck[option] =
+                                                !robotErrorsCheck[option];
+                                        }}
+                                    />{" "}
+                                    {option}
+                                </label>
+                                <br></br>
+                            </>
+                        ))}
+                    </div>
+                </div>
                 <AutoResizeTextarea
                     value={otherRobotNotes}
                     onChange={setOtherRobotNotes}
                     placeholder="Other notes about robot"
-                />    
+                />
                 <button className={buttonStyle} onClick={submitData}>
                     Submit
                 </button>
