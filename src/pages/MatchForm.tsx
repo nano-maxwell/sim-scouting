@@ -38,11 +38,8 @@ const MatchForm: React.FC = () => {
     const [matchNumber, setMatchNumber] = useState(0);
 
     // Auto values
-    const [autoBump, setAutoBump] = useState(false);
-    const [autoUnderTrench, setAutoUnderTrench] = useState(false);
     const [autoFuel, setAutoFuel] = useState(0);
     const [autoClimbed, setAutoClimbed] = useState(false);
-    const [autoPlayedDefense, setAutoPlayedDefense] = useState(false);
 
     // Teleop values
     const [teleopShift, setTeleopShift] = useState(0);
@@ -67,13 +64,11 @@ const MatchForm: React.FC = () => {
     const [endgameFuel, setEndgameFuel] = useState(0);
     const [endgameClimbLevel, setEndgameClimbLevel] = useState("0");
 
-    const [endgameAction, setEndgameAction] = useState<string>("");
-    const [hadError, setHadError] = useState<boolean | null>(null);
-    const [robotError, setRobotError] = useState<string>("");
     const [notes, setNotes] = useState<string>("");
 
-    // Error values
-
+    // finale  values
+    const [crossedBump, setCrossedBump] = useState(false);
+    const [underTrench, setUnderTrench] = useState(false);
     const [otherRobotNotes, setOtherRobotNotes] = useState<string>("");
 
     const events = ["NE District Minuteman Event", "NE District URI Event"];
@@ -108,36 +103,23 @@ const MatchForm: React.FC = () => {
         Other: false,
     };
 
-    function changeError(newValue: boolean) {
-        setHadError(newValue);
-        if (!hadError && robotError != "") {
-            setRobotError("");
-        }
-    }
-
     async function submitData() {
         //make sure certain fields are filled out
         let debug = true;
         let check: boolean =
             eventName !== "" &&
             teamNumber !== null &&
-            matchNumber !== null &&
-            hadError !== null &&
-            endgameAction !== "";
+            matchNumber !== null
 
         const data = {
             scoutingTeam: scoutingTeam,
-            // sample data object,
             name: readCookie("user"),
             eventName: eventName,
             teamNumber: teamNumber,
             matchNumber: matchNumber,
 
-            autoBump: autoBump,
-            autoUnderTrench: autoUnderTrench,
             autoFuel: autoFuel,
             autoClimbed: autoClimbed,
-            autoPlayedDefense: autoPlayedDefense,
 
             shift1HubActive: shift1HubActive,
             shift2HubActive: shift2HubActive,
@@ -155,8 +137,12 @@ const MatchForm: React.FC = () => {
             shift3Defense: shift3Defense,
             shift4Defense: shift4Defense,
 
+            endgameFuel: endgameFuel,
+            endgameClimbLevel: endgameClimbLevel,
+
+            crossedBump: crossedBump,
+            underTrench: underTrench,
             notes: notes,
-            endgameAction: endgameAction,
             robotError: robotErrorsCheck,
         };
         /*
@@ -255,24 +241,6 @@ const MatchForm: React.FC = () => {
                     options={["yes", "no"]}
                     button1Selected={autoClimbed}
                     onChange={setAutoClimbed}
-                />
-                <BinaryChoice
-                    label={"Over Bump?"}
-                    options={["yes", "no"]}
-                    button1Selected={autoBump}
-                    onChange={setAutoBump}
-                />
-                <BinaryChoice
-                    label={"Under Trench?"}
-                    options={["yes", "no"]}
-                    button1Selected={autoUnderTrench}
-                    onChange={setAutoUnderTrench}
-                />
-                <BinaryChoice
-                    label={"Play Defense"}
-                    options={["yes", "no"]}
-                    button1Selected={autoPlayedDefense}
-                    onChange={setAutoPlayedDefense}
                 />
             </>
         );
@@ -428,7 +396,6 @@ const MatchForm: React.FC = () => {
 
                 <div className="justify-center items-center flex flex-col">
                     {shiftcontent}
-                    
                 </div>
             </div>
         );
@@ -454,13 +421,25 @@ const MatchForm: React.FC = () => {
         content = (
             <>
                 <div className="flex flex-col items-center space-y-2">
+                    <BinaryChoice
+                        label={"Over Bump?"}
+                        options={["yes", "no"]}
+                        button1Selected={crossedBump}
+                        onChange={setCrossedBump}
+                    />
+                    <BinaryChoice
+                        label={"Under Trench?"}
+                        options={["yes", "no"]}
+                        button1Selected={underTrench}
+                        onChange={setUnderTrench}
+                    />
                     <div
                         onClick={() =>
                             setShowCheckboxes(
                                 (showCheckboxes) => !showCheckboxes,
                             )
                         }
-                        className="cursor-pointer text-white text-l pl-8 pr-8 p-4 flex-col items-start flex justify-center w-60 bg-gray-700 rounded-full focus-within:outline-auto relative"
+                        className="pt-4 cursor-pointer text-white text-l pl-8 pr-8 p-4 flex-col items-start flex justify-center w-60 bg-gray-700 rounded-full focus-within:outline-auto relative"
                     >
                         <div className="relative">Select Robot Errors</div>
                     </div>
@@ -554,7 +533,7 @@ const MatchForm: React.FC = () => {
                     className={tab("errors")}
                     onClick={() => setSection("errors")}
                 >
-                    Errors
+                    Finale
                 </button>
             </div>
             {content}
