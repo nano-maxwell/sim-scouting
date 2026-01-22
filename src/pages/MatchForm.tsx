@@ -7,7 +7,7 @@ import MultiCounterInput from "../components/MultiCounterInput";
 import IntegerInput from "../components/IntegerInput";
 import Dropdown from "../components/Dropdown";
 import AutoResizeTextarea from "../components/AutoResizeTextArea";
-import { writeData } from "../scripts/firebase";
+import { writeToDb } from "../scripts/firebase";
 import { readCookie } from "../scripts/user";
 import isMobile from "../scripts/isMobileDevice";
 import isMobileDevice from "../scripts/isMobileDevice";
@@ -104,15 +104,8 @@ const MatchForm: React.FC = () => {
         "Did not participate": false,
         "Auto Stop": false,
         "Robot could not get off after climb": false,
-        "Other": false,
+        Other: false,
     };
-
-    function changeError(newValue: boolean) {
-        setHadError(newValue);
-        if (!hadError && robotError != "") {
-            setRobotError("");
-        }
-    }
 
     async function submitData() {
         //make sure certain fields are filled out
@@ -155,7 +148,7 @@ const MatchForm: React.FC = () => {
 
             notes: notes,
             endgameAction: endgameAction,
-            robotError: robotErrorsCheck, 
+            robotError: robotErrorsCheck,
         };
         /*
         The path for block of data will be submitted as follows:
@@ -170,12 +163,12 @@ const MatchForm: React.FC = () => {
                 JSON.stringify(data),
             );
             setSent(false);
-            if (
-                !(await writeData(
-                    `${teamNumber?.toString()}/${matchNumber?.toString()}`,
-                    data,
-                ))
-            ) {
+            let val = await writeToDb(
+                `${teamNumber?.toString()}/${matchNumber?.toString()}`,
+                data,
+            );
+            console.log(val);
+            if (!val) {
                 setSent(true);
             } else {
                 setSent(false);
