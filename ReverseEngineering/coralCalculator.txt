@@ -12,7 +12,7 @@ function IndividualCoralPieces(teamNumber) {
   const pieceData = pieceSheet.getRange("A:AW"/*man*/).getValues();
 
 /**
-Gets the Auto information for the team number and creates a variable for it
+Gets the Auto information for the team number and creates a variable for it.
 */
   var teamAutoL4 = VLookup(teamNumber, pieceData, 3);
   var teamAutoL3 = VLookup(teamNumber, pieceData, 4);
@@ -34,7 +34,9 @@ Gets the Auto information for the team number and creates a variable for it
   teamTeleopL3 = (teamTeleopL3 && !isNaN(teamTeleopL3)) ? Number(teamTeleopL3) : 0;
   teamTeleopL2 = (teamTeleopL2 && !isNaN(teamTeleopL2)) ? Number(teamTeleopL2) : 0;
   teamTeleopL1 = (teamTeleopL1 && !isNaN(teamTeleopL1)) ? Number(teamTeleopL1) : 0;
-
+/**
+Creates a array of all the information which also has the team number in it.
+*/
   var array2D = [
     [teamNumber, teamAutoL4, teamAutoL3, teamAutoL2, teamAutoL1],
     [teamNumber, teamTeleopL4, teamTeleopL3, teamTeleopL2, teamTeleopL1]
@@ -42,42 +44,13 @@ Gets the Auto information for the team number and creates a variable for it
   return array2D;
 }
 
-function IndividualCoralPoints(teamNumber) {
-  var spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
-  var pointSheet = spreadsheet.getSheetByName("Point Data");
-
-  const pointData = pointSheet.getRange("A:AE").getValues();
-
-  var teamAutoL4 = VLookup(teamNumber, pointData, 3);
-  var teamAutoL3 = VLookup(teamNumber, pointData, 4);
-  var teamAutoL2 = VLookup(teamNumber, pointData, 5);
-  var teamAutoL1 = VLookup(teamNumber, pointData, 6);
-
-  var teamTeleopL4 = VLookup(teamNumber, pointData, 13);
-  var teamTeleopL3 = VLookup(teamNumber, pointData, 14);
-  var teamTeleopL2 = VLookup(teamNumber, pointData, 15);
-  var teamTeleopL1 = VLookup(teamNumber, pointData, 16);
-  
-  // Handle potential NaN values and ensure all values are numeric
-  teamAutoL4 = (teamAutoL4 && !isNaN(teamAutoL4)) ? Number(teamAutoL4) : 0;
-  teamAutoL3 = (teamAutoL3 && !isNaN(teamAutoL3)) ? Number(teamAutoL3) : 0;
-  teamAutoL2 = (teamAutoL2 && !isNaN(teamAutoL2)) ? Number(teamAutoL2) : 0;
-  teamAutoL1 = (teamAutoL1 && !isNaN(teamAutoL1)) ? Number(teamAutoL1) : 0;
-
-  teamTeleopL4 = (teamTeleopL4 && !isNaN(teamTeleopL4)) ? Number(teamTeleopL4) : 0;
-  teamTeleopL3 = (teamTeleopL3 && !isNaN(teamTeleopL3)) ? Number(teamTeleopL3) : 0;
-  teamTeleopL2 = (teamTeleopL2 && !isNaN(teamTeleopL2)) ? Number(teamTeleopL2) : 0;
-  teamTeleopL1 = (teamTeleopL1 && !isNaN(teamTeleopL1)) ? Number(teamTeleopL1) : 0;
-
-  var array2D = [
-    [teamNumber, teamAutoL4, teamAutoL3, teamAutoL2, teamAutoL1],
-    [teamNumber, teamTeleopL4, teamTeleopL3, teamTeleopL2, teamTeleopL1]
-  ];
-
-  return array2D;
-}
-
-
+/**
+Creates a function LowestTeam which takes 4 parameters : the teams and a type(sorting type like Points).
+Gets the spreadsheet.
+Gets type or something(I'll ask Ben when we see him)
+Creates a total points for each team
+It then finds the minimum and based on that returns the minimum
+*/
 function LowestTeam(team1, team2, team3, type) {
   var spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
   // figure out which type and get that sheet
@@ -109,6 +82,12 @@ function LowestTeam(team1, team2, team3, type) {
       return 0;
   }
 }
+
+/**
+Creates OrganizeCoral function which intakes allianceColor
+Creates the spreadsheet variable which is the file
+Creates predictionSheet variable which is the "Game Predictor" sheet
+*/
 
 function OrganizeCoral(allianceColor) {
   var spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
