@@ -29,9 +29,9 @@ const db = getFirestore(app);
 const auth = getAuth(app);
 
 
-export async function writeData(path: string, data: Record<string, any>) {
+
+async function writeData(path: string, data: Record<string, any>) {
     try {
-        if (await readDoc(path)) path += Date.now().toString(); // prevent overwriting existing data
         const docRef = doc(db, path);
         await setDoc(docRef, data, { merge: true }); // merge prevents overwriting entire doc, if read fn goes wrong
         console.log("Document written:", path);
@@ -41,6 +41,15 @@ export async function writeData(path: string, data: Record<string, any>) {
         alert("An error occured: your data has been saved locally but not uploaded.");
         return false;
     }
+}
+export async function writeToDb(path: string, data: Record<string, any>) {
+    let p = await readDoc("datas/data");
+    p = p.team;
+    if (p && !p.includes(data.teamNumber)) {
+        p.push(data.teamNumber);
+        await writeData("datas/data", { team: p });
+    }
+    return await writeData(path, data);
 }
 export async function readDoc<T = any>(path: string): Promise<T | null> {
   const db = getFirestore();

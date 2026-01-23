@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { writeData } from "../scripts/firebase";
+import { writeToDb } from "../scripts/firebase";
 import ReactJsonView from '@microlink/react-json-view'
 
 interface ActionComponentProps {
@@ -70,19 +70,9 @@ const LocalStorageView: React.FC = () => {
     const submitItem = () => {
         if (!selectedKey) return;
         let json = JSON.parse(value);
-        writeData(
+        writeToDb(
             `${json.teamNumber?.toString()}/${json.matchNumber?.toString()}`,
             json
-        );
-    };
-    const makeValue = (val: string) => {
-        let parsed = JSON.parse(val);
-        return (
-            "Team Number: " +
-            parsed.teamNumber +
-            "\nMatch Number: " +
-            parsed.matchNumber +
-            "\n"
         );
     };
 
