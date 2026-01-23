@@ -1,4 +1,4 @@
-const emptyList = '{"eventname" : "", "team": 0, "match": 0, "name": "seed", "scoutingTeam": 0, "autoFuel": 0, "autoClimbed": false, "transitionFuel": 0, "shift1HubActive": false, "shift1Fuel": 0, "shift1Defense": false, "shift2HubActive": false, "shift2Fuel": 0, "shift2Defense": false, "shift3HubActive": false, "shift3Fuel": 0, "shift3Defense": false, "shift4HubActive": false, "shift4Fuel": 0, "shift4Defense": false, "endgameFuel": 0, "endgameClimbLevel": "Level 1", "crossedBump": false, "underTrench": false, "robotError": [], "note": ""}';
+const emptyList = '{"eventName" : "", "teamNumber": 0, "matchNumber": 0, "name": "seed", "scoutingTeam": 0, "autoFuel": 0, "autoClimbed": false, "transitionFuel": 0, "shift1HubActive": false, "shift1Fuel": 0, "shift1Defense": false, "shift2HubActive": false, "shift2Fuel": 0, "shift2Defense": false, "shift3HubActive": false, "shift3Fuel": 0, "shift3Defense": false, "shift4HubActive": false, "shift4Fuel": 0, "shift4Defense": false, "endgameFuel": 0, "endgameClimbLevel": "Level 1", "crossedBump": false, "underTrench": false, "robotError": [], "notes": ""}';
 
     // Setup values
     let scoutingTeam = 0;
@@ -34,7 +34,7 @@ const emptyList = '{"eventname" : "", "team": 0, "match": 0, "name": "seed", "sc
     // finale  values
     let crossedBump = false;
     let underTrench = false;
- let notes: Record<string, boolean> = {
+ let robotErrorCheck: Record<string, boolean> = {
         "Intake issues": false,
         "Climb Failed": false,
         "Robot unresponsive": false,
@@ -44,7 +44,7 @@ const emptyList = '{"eventname" : "", "team": 0, "match": 0, "name": "seed", "sc
         "Robot could not get off after climb": false,
         Other: false,
     };
-    let otherRobotNotes = "";
+    let notes = "";
 
 
 let randNum = 0;
@@ -52,8 +52,12 @@ let randNum = 0;
 
 const robotErrorList: string[] = ['Intake issues', 'Climb Failed', 'Robot Unresponsive', 'Robot part fell off', 'Did not participate', 'Auto stop', 'Robot did not get off after climb', 'other'];
 
-// Select the items at the chosen indices
+const noteList: string[] = ['Good robot', 'Good past', 'Lucky match', 'Played better than expected', 'Played worse than expected', 'Unlucky match', 'Outlier match', 'Thank you sam'];
 
+/**
+ * Returns an example scouting as a JSON.
+ */
+export default function seedDataBase(){
 
 
 function getRandomInt(min: number, max: number): number {
@@ -64,12 +68,8 @@ function getRandomInt(min: number, max: number): number {
 }
 
 
-/**
- * Returns an example scouting as a JSON.
- */
-function seedDataBase(){
 
-let emptyJsonList = JSON.parse(emptyList);
+    let emptyJsonList = JSON.parse(emptyList);
 
 
     // EventName
@@ -80,10 +80,10 @@ let emptyJsonList = JSON.parse(emptyList);
     }
 
     // Scouting Team
-    scoutingTeam = getRandomInt(0,9998)
+    scoutingTeam = getRandomInt(1,9998)
 
     // teamNumber
-    teamNumber = 9999;
+    teamNumber = 9998;
 
     // matchNumber
     matchNumber = getRandomInt(1,70);
@@ -98,17 +98,20 @@ let emptyJsonList = JSON.parse(emptyList);
         autoClimbed = true;
     }
 
+    // transitionFuel
+    transitionFuel = getRandomInt(5,20);
+
 
 
     // shift1HubActive
     if (getRandomInt(0, 1) == 0){
-        shift1HubActive = true;
-    } else {
         shift1HubActive = false;
+    } else {
+        shift1HubActive = true;
     }
 
     // shift1Fuel & shift1Defense
-    if (shift1HubActive) {
+    if (!shift1HubActive) {
         shift1Fuel = 0;
         if (getRandomInt(0,1) == 0){
             shift1Defense = false;
@@ -117,6 +120,7 @@ let emptyJsonList = JSON.parse(emptyList);
         }
     } else {
         shift1Fuel = getRandomInt(10,60);
+        shift1Defense = false;
     }
 
 
@@ -173,7 +177,7 @@ let emptyJsonList = JSON.parse(emptyList);
     }
 
     // shift4Fuel & shift4Defense
-    if (shift4HubActive) {
+    if (!shift4HubActive) {
         shift4Fuel = 0;
         if (getRandomInt(0,1) == 0){
             shift4Defense = false;
@@ -207,19 +211,24 @@ let emptyJsonList = JSON.parse(emptyList);
         underTrench = true;
     }
 
-    // notes
-    const selectedErrors: number[] = [getRandomInt(0,2), getRandomInt(3,4), getRandomInt(5,7)];
-    for (let i = 0; i<3; i++){
-        notes[selectedErrors[i]] = true;
+    if (!crossedBump) {
+        underTrench = true
     }
 
-    // otherRobotNotes
-    otherRobotNotes = "thank you sam";
+    // robotErrorCheck
+    const selectedErrors: number[] = [getRandomInt(0,2), getRandomInt(3,4), getRandomInt(5,7)];
+    for (let i = 0; i<3; i++){
+        robotErrorCheck[robotErrorList[selectedErrors[i]]] = true;
+    }
+
+    // notes
+    notes = noteList[getRandomInt(0,7)];
 
     // setup
     emptyJsonList["eventName"] = eventName;
     emptyJsonList["teamNumber"] = teamNumber;
     emptyJsonList["matchNumber"] = matchNumber;
+    emptyJsonList["scoutingTeam"] = scoutingTeam
 
     // auto
     emptyJsonList["autoFuel"] = autoFuel;
@@ -250,12 +259,9 @@ let emptyJsonList = JSON.parse(emptyList);
     // finale
     emptyJsonList["crossedBump"] = crossedBump;
     emptyJsonList["underTrench"] = underTrench;
-    emptyJsonList["robotErrorsCheck"] = notes;
-    emptyJsonList["otherRobotNotes"] = otherRobotNotes;
+    emptyJsonList["robotError"] = robotErrorCheck;
+    emptyJsonList["notes"] = notes;
 
 
     return emptyJsonList;
 }
-
-const seedFunction = seedDataBase();
-export default seedFunction;

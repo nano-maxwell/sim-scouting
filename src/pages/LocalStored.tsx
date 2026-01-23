@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { writeToDb } from "../scripts/firebase";
 import ReactJsonView from '@microlink/react-json-view'
+import seedDataBase from "../scripts/seed";
 
 interface ActionComponentProps {
     onSubmit: () => void;
@@ -75,9 +76,30 @@ const LocalStorageView: React.FC = () => {
             json
         );
     };
+    
+    const seed = () => {
+        const seedJson = seedDataBase()
+        console.log(seedJson);
+        writeToDb(
+            `${seedJson.teamNumber?.toString()}/${seedJson.matchNumber?.toString()}`,
+        seedJson
+        )
+        console.log("Attemped to seed.");
+    }
+    const seedMulti = () => {
+        const seedJson = seedDataBase()
+        console.log(seedJson);
+        for (let i = 0; i<20; i++)
+            writeToDb(
+                `${seedJson.teamNumber?.toString()}/${seedJson.matchNumber?.toString()}`,
+            seedJson
+        )
+        console.log("Attemped to seed 20.");
+    }
 
     return (
         <div className="flex flex-col items-center justify-start space-y-6 pt-12">
+            
             <h1 className="font-bold text-white text-4xl">
                 LocalStorage Viewer{" "}
             </h1>
@@ -128,6 +150,20 @@ const LocalStorageView: React.FC = () => {
             </div>
 
             <ActionComponent onSubmit={submitItem} onDelete={deleteItem} />
+
+
+            <button
+                onClick={seed}
+                className="bg-violet-600 hover:bg-violet-800 text-white px-4 py-2 rounded-xl"
+            >
+                 Seed, DO NOT SPAM!!
+            </button>
+            {/*<button
+                onClick={seedMulti}
+                className="bg-pink-700 hover:bg-pink-900 text-white px-4 py-2 rounded-xl"
+            >
+                 Seed 20 ⚠️⚠️⚠️DO NOT SPAM ⚠️⚠️⚠️
+            </button>*/}
         </div>
     );
 };
