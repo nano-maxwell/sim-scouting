@@ -47,9 +47,9 @@ Creates a array of all the information which also has the team number in it.
 /**
 Creates a function LowestTeam which takes 4 parameters : the teams and a type(sorting type like Points).
 Gets the spreadsheet.
-Gets type or something(I'll ask Ben when we see him)
 Creates a total points for each team
 It then finds the minimum and based on that returns the minimum
+This one is confusing
 */
 function LowestTeam(team1, team2, team3, type) {
   var spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
@@ -237,6 +237,9 @@ function OrganizeCoral(allianceColor) {
   return roundedPieces;
 }
 
+/**
+Uses all the information from befeore and inputs it into the "Game Predictor" spreadsheet (We probably don't need that)
+*/
 function DefenseCalculator() {
   var redTeamValue = OrganizeCoral("red");
   var blueTeamValue = OrganizeCoral("blue");
@@ -292,7 +295,9 @@ function DefenseCalculator() {
 
   predictionSheet.getRange('J4:U5').setValues(allValues);
 }
-
+/**
+Runs DefenseCalculator function
+*/
 function CoralCalculator() {
   DefenseCalculator();
 }
