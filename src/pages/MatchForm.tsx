@@ -46,9 +46,9 @@ const MatchForm: React.FC = () => {
 
     const [transitionFuel, setTransitionFuel] = useState(0);
     const [shift1HubActive, setShift1HubActive] = useState(false);
-    const [shift2HubActive, setShift2HubActive] = useState(false);
+    const [shift2HubActive, setShift2HubActive] = useState(true);
     const [shift3HubActive, setShift3HubActive] = useState(false);
-    const [shift4HubActive, setShift4HubActive] = useState(false);
+    const [shift4HubActive, setShift4HubActive] = useState(true);
 
     const [shift1Fuel, setShift1Fuel] = useState(0);
     const [shift2Fuel, setShift2Fuel] = useState(0);
@@ -79,6 +79,55 @@ const MatchForm: React.FC = () => {
         setShift3HubActive(!shift3HubActive);
         setShift4HubActive(!shift4HubActive);
     };
+
+    function switchShiftsBetter(buttonPressed : boolean) {
+        if (buttonPressed) {
+            if (!shift1HubActive) {
+                switchShifts();
+            }
+        }
+        else {
+            if (shift1HubActive) {
+                switchShifts();
+            }
+        }
+    }
+    function switchShiftsBetter2(buttonPressed : boolean) {
+        if (buttonPressed) {
+            if (!shift2HubActive) {
+                switchShifts();
+            }
+        }
+        else {
+            if (shift2HubActive) {
+                switchShifts();
+            }
+        }
+    }
+    function switchShiftsBetter3(buttonPressed : boolean) {
+        if (buttonPressed) {
+            if (!shift3HubActive) {
+                switchShifts();
+            }
+        }
+        else {
+            if (shift3HubActive) {
+                switchShifts();
+            }
+        }
+    }
+    function switchShiftsBetter4(buttonPressed : boolean) {
+        if (buttonPressed) {
+            if (!shift4HubActive) {
+                switchShifts();
+            }
+        }
+        else {
+            if (shift4HubActive) {
+                switchShifts();
+            }
+        }
+    }
 
     const endgameActions = [
         // add
@@ -275,7 +324,7 @@ const MatchForm: React.FC = () => {
                     <BinaryChoice
                         label={"Hub Active?"}
                         options={["yes", "no"]}
-                        onChange={switchShifts}
+                        onChange={switchShiftsBetter}
                         button1Selected={shift1HubActive}
                     />
                     <MultiCounterInput
@@ -299,7 +348,7 @@ const MatchForm: React.FC = () => {
                     <BinaryChoice
                         label={"Hub Active?"}
                         options={["yes", "no"]}
-                        onChange={switchShifts}
+                        onChange={switchShiftsBetter2}
                         button1Selected={shift2HubActive}
                     />
                     <MultiCounterInput
@@ -323,7 +372,7 @@ const MatchForm: React.FC = () => {
                     <BinaryChoice
                         label={"Hub Active?"}
                         options={["yes", "no"]}
-                        onChange={switchShifts}
+                        onChange={switchShiftsBetter3}
                         button1Selected={shift3HubActive}
                     />
                     <MultiCounterInput
@@ -347,7 +396,7 @@ const MatchForm: React.FC = () => {
                     <BinaryChoice
                         label={"Hub Active?"}
                         options={["yes", "no"]}
-                        onChange={switchShifts}
+                        onChange={switchShiftsBetter4}
                         button1Selected={shift4HubActive}
                     />
                     <MultiCounterInput
