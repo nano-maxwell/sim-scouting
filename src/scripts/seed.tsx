@@ -52,7 +52,7 @@ let randNum = 0;
 
 const robotErrorList: string[] = ['Intake issues', 'Climb Failed', 'Robot Unresponsive', 'Robot part fell off', 'Did not participate', 'Auto stop', 'Robot did not get off after climb', 'other'];
 
-const noteList: string[] = ['Good robot', 'Good past', 'Lucky match', 'Played better than expected', 'Played worse than expected', 'Unlucky match', 'Outlier match', 'Thank you sam'];
+const noteList: string[] = ['Good robot', 'Good history', 'Lucky match', 'Played better than expected', 'Played worse than expected', 'Unlucky match', 'Outlier match', 'Great drivers', 'Bad drivers', 'Agressive', 'Passive', 'Fast robot', 'Slower robot', 'Interesting mechanism', 'Poor history', 'Thank you sam'];
 
 /**
  * Returns an example scouting as a JSON.
@@ -69,7 +69,7 @@ function getRandomInt(min: number, max: number): number {
 
 
 
-    let emptyJsonList = JSON.parse(emptyList);
+    let baseJsonList = JSON.parse(emptyList);
 
 
     // EventName
@@ -87,9 +87,12 @@ function getRandomInt(min: number, max: number): number {
 
     // matchNumber
     matchNumber = getRandomInt(1,70);
+    if (matchNumber == 67){
+        matchNumber = getRandomInt(1,66)
+    }
 
     // autoFuel
-    autoFuel = getRandomInt(10,50);
+    autoFuel = getRandomInt(10,34);
 
     // autoClimbLevel
     if (getRandomInt(0, 1) == 0){
@@ -99,12 +102,12 @@ function getRandomInt(min: number, max: number): number {
     }
 
     // transitionFuel
-    transitionFuel = getRandomInt(5,20);
+    transitionFuel = getRandomInt(4,17);
 
 
 
     // shift1HubActive
-    if (getRandomInt(0, 1) == 0){
+    if (autoFuel > 25){
         shift1HubActive = false;
     } else {
         shift1HubActive = true;
@@ -119,7 +122,7 @@ function getRandomInt(min: number, max: number): number {
             shift1Defense = true;
         }
     } else {
-        shift1Fuel = getRandomInt(10,60);
+        shift1Fuel = getRandomInt(15,42);
         shift1Defense = false;
     }
 
@@ -141,7 +144,12 @@ function getRandomInt(min: number, max: number): number {
             shift2Defense = true;
         }
     } else {
-        shift2Fuel = getRandomInt(10,60);
+
+        if (shift1Defense == true){
+            shift2Fuel = getRandomInt(25,57);
+        } else {
+            shift2Fuel = getRandomInt(15,41);
+        }
         shift2Defense = false;
     }
 
@@ -163,7 +171,13 @@ function getRandomInt(min: number, max: number): number {
             shift3Defense = true;
         }
     } else {
-        shift3Fuel = getRandomInt(10,60);
+
+        if (shift2Defense == true){
+            shift3Fuel = getRandomInt(25,57);
+        } else {
+            shift3Fuel = getRandomInt(15,41);
+        }
+
         shift3Defense = false;
     }
 
@@ -185,14 +199,20 @@ function getRandomInt(min: number, max: number): number {
             shift4Defense = true;
         }
     } else {
-        shift4Fuel = getRandomInt(10,60);
+        
+        if (shift3Defense == true){
+            shift4Fuel = getRandomInt(25,57);
+        } else {
+            shift4Fuel = getRandomInt(15,41);
+        }
+
         shift4Defense = false;
     }
 
 
 
     // endgameFuel
-    endgameFuel = getRandomInt(5,40);
+    endgameFuel = getRandomInt(8,26);
 
     // endgameClimbLevel
     endgameClimbLevel = getRandomInt(0,3).toString();
@@ -207,16 +227,19 @@ function getRandomInt(min: number, max: number): number {
     // underTrench
     if (getRandomInt(0, 1) == 0){
         underTrench = false;
+
+        if (!crossedBump) {
+            underTrench = true
+        }
+
     } else {
         underTrench = true;
     }
 
-    if (!crossedBump) {
-        underTrench = true
-    }
 
     // robotErrorCheck
-    const selectedErrors: number[] = [getRandomInt(0,2), getRandomInt(3,4), getRandomInt(5,7)];
+    const selectedErrors: number[] = [getRandomInt(0,3), getRandomInt(3,7)];
+
     for (let i = 0; i<3; i++){
         robotErrorCheck[robotErrorList[selectedErrors[i]]] = true;
     }
@@ -225,43 +248,42 @@ function getRandomInt(min: number, max: number): number {
     notes = noteList[getRandomInt(0,7)];
 
     // setup
-    emptyJsonList["eventName"] = eventName;
-    emptyJsonList["teamNumber"] = teamNumber;
-    emptyJsonList["matchNumber"] = matchNumber;
-    emptyJsonList["scoutingTeam"] = scoutingTeam
+    baseJsonList["eventName"] = eventName;
+    baseJsonList["teamNumber"] = teamNumber;
+    baseJsonList["matchNumber"] = matchNumber;
+    baseJsonList["scoutingTeam"] = scoutingTeam
 
     // auto
-    emptyJsonList["autoFuel"] = autoFuel;
-    emptyJsonList["autoClimbed"] = autoClimbed;
+    baseJsonList["autoFuel"] = autoFuel;
+    baseJsonList["autoClimbed"] = autoClimbed;
 
     // teleop
-    emptyJsonList["transitionFuel"] = transitionFuel;
+    baseJsonList["transitionFuel"] = transitionFuel;
 
-    emptyJsonList["shift1HubActive"] = shift1HubActive;
-    emptyJsonList["shift2HubActive"] = shift2HubActive;
-    emptyJsonList["shift3HubActive"] = shift3HubActive;
-    emptyJsonList["shift4HubActive"] = shift4HubActive;
+    baseJsonList["shift1HubActive"] = shift1HubActive;
+    baseJsonList["shift2HubActive"] = shift2HubActive;
+    baseJsonList["shift3HubActive"] = shift3HubActive;
+    baseJsonList["shift4HubActive"] = shift4HubActive;
 
-    emptyJsonList["shift1Fuel"] = shift1Fuel;
-    emptyJsonList["shift2Fuel"] = shift2Fuel;
-    emptyJsonList["shift3Fuel"] = shift3Fuel;
-    emptyJsonList["shift4Fuel"] = shift4Fuel;
+    baseJsonList["shift1Fuel"] = shift1Fuel;
+    baseJsonList["shift2Fuel"] = shift2Fuel;
+    baseJsonList["shift3Fuel"] = shift3Fuel;
+    baseJsonList["shift4Fuel"] = shift4Fuel;
 
-    emptyJsonList["shift1Defense"] = shift1Defense;
-    emptyJsonList["shift2Defense"] = shift2Defense;
-    emptyJsonList["shift3Defense"] = shift3Defense;
-    emptyJsonList["shift4Defense"] = shift4Defense;
+    baseJsonList["shift1Defense"] = shift1Defense;
+    baseJsonList["shift2Defense"] = shift2Defense;
+    baseJsonList["shift3Defense"] = shift3Defense;
+    baseJsonList["shift4Defense"] = shift4Defense;
 
     // endgame
-    emptyJsonList["endgameFuel"] = endgameFuel;
-    emptyJsonList["endgameClimbLevel"] = endgameClimbLevel;
+    baseJsonList["endgameFuel"] = endgameFuel;
+    baseJsonList["endgameClimbLevel"] = endgameClimbLevel;
 
     // finale
-    emptyJsonList["crossedBump"] = crossedBump;
-    emptyJsonList["underTrench"] = underTrench;
-    emptyJsonList["robotError"] = robotErrorCheck;
-    emptyJsonList["notes"] = notes;
+    baseJsonList["crossedBump"] = crossedBump;
+    baseJsonList["underTrench"] = underTrench;
+    baseJsonList["robotError"] = robotErrorCheck;
+    baseJsonList["notes"] = notes;
 
-
-    return emptyJsonList;
+    return baseJsonList;
 }
