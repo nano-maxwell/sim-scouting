@@ -54,7 +54,6 @@ const robotErrorList: string[] = [
     "Climb Failed",
     "Robot unresponsive",
     "Robot part fell off",
-    "Did not participate",
     "Auto stop",
     "Robot did not get off after climb",
     "other",

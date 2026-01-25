@@ -144,7 +144,7 @@ const MatchForm: React.FC = () => {
         "Robot unresponsive",
         "Robot part fell off",
         "Did not participate",
-        "Auto Stop",
+        "Auto stop",
         "Robot could not get off after climb",
         "Other",
     ];
@@ -155,7 +155,7 @@ const MatchForm: React.FC = () => {
         "Robot unresponsive": false,
         "Robot part fell off": false,
         "Did not participate": false,
-        "Auto Stop": false,
+        "Auto stop": false,
         "Robot could not get off after climb": false,
         Other: false,
     };
