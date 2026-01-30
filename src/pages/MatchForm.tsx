@@ -277,7 +277,7 @@ const MatchForm: React.FC = () => {
                     label={"Your team number"}
                     placeholder="e.g. 3464"
                     min={1}
-                    max={12000}
+                    max={99999}
                 />
                 <IntegerInput
                     value={matchNumber}
@@ -285,7 +285,7 @@ const MatchForm: React.FC = () => {
                     label={"Match Number"}
                     placeholder="e.g. 42"
                     min={1}
-                    max={12000}
+                    max={99999}
                 />
                 <IntegerInput
                     value={teamNumber}
@@ -293,7 +293,7 @@ const MatchForm: React.FC = () => {
                     label={"Team Number"}
                     placeholder="e.g. 3464"
                     min={1}
-                    max={12000}
+                    max={99999}
                 />
             </>
         );
