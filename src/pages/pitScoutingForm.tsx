@@ -8,11 +8,13 @@ import { writeToDb } from "../scripts/firebase";
 import Dropdown from "../components/Dropdown";
 
 
+
 const PitScoutingForm: React.FC = () => {
-    function goBack() {
-        const navigate = useNavigate();
+    const navigate = useNavigate();
+    const goBack = () => {
         navigate("/");
-    }
+    };
+
 
 
 
@@ -93,7 +95,7 @@ async function submitData() {
         const pathname = window.location.pathname;
 
         if (pathname === "/match") {
-            /*go back*/
+            goBack();
         }
     }
 }
@@ -107,8 +109,6 @@ async function submitData() {
         
         <div className="overflow-x-auto flex flex-col items-center justify-start space-y-6 pt-12.5">
             <h1 className="text-4xl font-bold text-white">Pit Scouting Form</h1>
-
-
 
             <button className={buttonStyle} onClick={goBack}>
                 Back
