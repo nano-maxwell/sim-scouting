@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import IntegerInput from "../components/IntegerInput";
 import AutoResizeTextarea from "../components/AutoResizeTextArea";
@@ -14,6 +14,14 @@ const PitScoutingForm: React.FC = () => {
     const goBack = () => {
         navigate("/");
     };
+
+
+     useEffect(() => {
+            // useEffect to run after component mounts
+            if (readCookie("user") == undefined) {
+                navigate("/login");
+            }
+        }, []);
 
 
 
