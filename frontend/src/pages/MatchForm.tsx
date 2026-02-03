@@ -575,7 +575,7 @@ const MatchForm: React.FC = () => {
                     />
 
                     <CheckboxDropdown 
-                        label = {"didyd"}
+                        label = {"Select Robot Errors"}
                         optionList={robotErrors}
                         optionCheck = {robotErrorsCheck}
                         onChange = {setRobotErrorsCheck}

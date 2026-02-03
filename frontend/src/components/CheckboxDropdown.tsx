@@ -42,7 +42,7 @@ const [showCheckboxes, setShowCheckboxes] = useState<boolean>(false);
                 onClick={() => setShowCheckboxes((showCheckboxes) => !showCheckboxes,)}
                 className="pt-4 cursor-pointer text-white text-l pl-8 pr-8 p-4 flex-col items-start flex justify-center w-60 bg-gray-700 rounded-full focus-within:outline-auto relative"
             >
-                        <div className="relative">Select Robot Errors</div>
+                        <div className="relative">{label}</div>
                     </div>
                     <div
                         style={{ display: showCheckboxes ? "block" : "none" }}
