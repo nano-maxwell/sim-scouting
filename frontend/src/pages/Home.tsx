@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { readCookie } from "../scripts/user";
 import { getDebugStatus } from "../scripts/debug";
+
 // Debug mode
 
 let debug = getDebugStatus();
@@ -18,6 +19,9 @@ const Home: React.FC = () => {
     const goToPitScoutingForm = () => {
         navigate("/pitscouting");
     }
+    const signOut = () => {
+        
+    }    
     return (
         <div className="flex flex-col items-center justify-center space-y-6">
             <h1 className="font-bold text-white text-4xl underline">
@@ -47,6 +51,12 @@ const Home: React.FC = () => {
                 onClick={goToPitScoutingForm}
             >
                 Pit scouting
+            </button>
+            <button
+                className="bg-slate-600 font-medium text-white text-3xl px-4 py-3 rounded-2xl hover:bg-slate-700 transition-colors"
+                onClick={signOut}
+            >
+                Sign out
             </button>
 
             {debug && (
