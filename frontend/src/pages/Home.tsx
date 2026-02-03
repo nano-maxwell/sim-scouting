@@ -2,12 +2,16 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { readCookie } from "../scripts/user";
 import { getDebugStatus } from "../scripts/debug";
+
 // Debug mode
 
 let debug = getDebugStatus();
 export { debug };
 
 const Home: React.FC = () => {
+
+    const signedIn = readCookie("user");
+
     const navigate = useNavigate();
     const goToMatchForm = () => {
         navigate("/match");
@@ -18,6 +22,9 @@ const Home: React.FC = () => {
     const goToPitScoutingForm = () => {
         navigate("/pitscouting");
     }
+    const signOut = () => {
+
+    }    
     return (
         <div className="flex flex-col items-center justify-center space-y-6">
             <h1 className="font-bold text-white text-4xl underline">
@@ -48,6 +55,18 @@ const Home: React.FC = () => {
             >
                 Pit scouting
             </button>
+            { 
+                signedIn && (
+                    <button
+                        className="bg-slate-600 font-medium text-white text-3xl px-4 py-3 rounded-2xl hover:bg-slate-700 transition-colors"
+                        onClick={signOut}
+                    >
+                        Sign out
+                    </button>
+                )
+            }
+
+
 
             {debug && (
                 <button className="bg-red-600 font-medium text-white text-3xl px-4 py-3 rounded-2xl hover:bg-red-700 transition-colors">
