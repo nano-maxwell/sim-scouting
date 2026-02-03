@@ -9,6 +9,9 @@ let debug = getDebugStatus();
 export { debug };
 
 const Home: React.FC = () => {
+
+    const signedIn = readCookie("user");
+
     const navigate = useNavigate();
     const goToMatchForm = () => {
         navigate("/match");
@@ -20,7 +23,7 @@ const Home: React.FC = () => {
         navigate("/pitscouting");
     }
     const signOut = () => {
-        
+
     }    
     return (
         <div className="flex flex-col items-center justify-center space-y-6">
@@ -52,12 +55,18 @@ const Home: React.FC = () => {
             >
                 Pit scouting
             </button>
-            <button
-                className="bg-slate-600 font-medium text-white text-3xl px-4 py-3 rounded-2xl hover:bg-slate-700 transition-colors"
-                onClick={signOut}
-            >
-                Sign out
-            </button>
+            { 
+                signedIn && (
+                    <button
+                        className="bg-slate-600 font-medium text-white text-3xl px-4 py-3 rounded-2xl hover:bg-slate-700 transition-colors"
+                        onClick={signOut}
+                    >
+                        Sign out
+                    </button>
+                )
+            }
+
+
 
             {debug && (
                 <button className="bg-red-600 font-medium text-white text-3xl px-4 py-3 rounded-2xl hover:bg-red-700 transition-colors">
