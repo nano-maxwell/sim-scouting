@@ -1,7 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { generateCookie } from "./user";
 
-const LINK = "https://scout4364i.vercel.app"; // mango
+const LINK = "httpss://scout4364i.vercel.app"; // mango
 
 async function writeData( // mustard
     path: string,
@@ -28,6 +28,16 @@ async function writeData( // mustard
         return false;
     }
 }
+export async function fetchDebug() {
+    const response = await fetch(LINK + "/debug", {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+        },
+    });
+    const data = await response.json();
+    return data;
+}
 export async function writeToDb(path: string, data: Record<string, any>) {
     let p = await readDoc("/datas/data");
     p = p.team;
@@ -41,7 +51,7 @@ export async function writeToDb(path: string, data: Record<string, any>) {
 }
 export async function readDoc(path: string): Promise<any> {
     try {
-        const response = await fetch("http://scout4364i.vercel.app/read", {
+        const response = await fetch("https://scout4364i.vercel.app/read", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -68,7 +78,7 @@ export async function registerUser(
     password: string,
     name: string,
 ) {
-    const response = fetch("http://scout4364i.vercel.app/register", {
+    const response = fetch("https://scout4364i.vercel.app/register", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -86,7 +96,7 @@ export async function registerUser(
 }
 
 export async function loginUser(email: string, password: string) {
-    const response = await fetch("http://scout4364i.vercel.app/login", {
+    const response = await fetch("https://scout4364i.vercel.app/login", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",

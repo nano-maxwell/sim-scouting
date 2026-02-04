@@ -23,15 +23,11 @@ const allowedOrigins = [
 ];
 
 app.use(express.json());
-app.use(
-    cors({
-        origin: allowedOrigins,
-    }),
-);
+app.use(cors());
 
 router.post("/debug", async (req, res) => {
-    res.status(200).json({value: "Dev,Daniel Senchukov"});
-})
+    res.status(200).json({ value: "Dev,Daniel Senchukov" });
+});
 
 router.post("/write", async (req, res) => {
     console.log(req.body);
@@ -47,7 +43,7 @@ router.post("/write", async (req, res) => {
         await docRef.set(data, { merge: true });
 
         res.send("Data written successfully");
-        } catch (error) {
+    } catch (error) {
         console.error(`Error writing data: ${error.message}`);
         res.status(500).send(`Error: ${error.message}`);
     }
@@ -93,7 +89,7 @@ router.post("/signup", async (req, res) => {
             message: "User created successfully",
             uid: userRecord.uid,
             email: userRecord.email,
-            name: name
+            name: name,
         });
     } catch (error) {
         console.error(error);
