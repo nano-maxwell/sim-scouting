@@ -3,7 +3,7 @@ import { generateCookie } from "./user";
 
 const LINK = import.meta.env.VITE_FIREBASE_LINK || "";
 
-async function writeData(
+async function writeData( // mango
     path: string,
     data: Record<string, any>,
 ) {
