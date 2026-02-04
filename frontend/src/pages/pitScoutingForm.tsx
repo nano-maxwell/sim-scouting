@@ -188,7 +188,7 @@ async function submitData() {
             <BinaryChoice 
                 label={"Used Outpost"}
                 options={["no", "yes"]}
-                button1Selected={false}
+                value={outpost}
                 onChange={setOutpost}        
             />  
             <button className={buttonStyle} onClick={submitData}>
