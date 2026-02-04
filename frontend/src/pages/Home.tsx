@@ -1,7 +1,8 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { readCookie } from "../scripts/user";
+import { readCookie, deleteCookie } from "../scripts/user";
 import { getDebugStatus } from "../scripts/debug";
+
 
 // Debug mode
 
@@ -23,7 +24,8 @@ const Home: React.FC = () => {
         navigate("/pitscouting");
     }
     const signOut = () => {
-
+        deleteCookie("user");
+        navigate("/login")
     }    
     return (
         <div className="flex flex-col items-center justify-center space-y-6">

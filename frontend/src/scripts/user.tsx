@@ -22,3 +22,15 @@ export function readCookie(name: any) {
             return c.substring(nameEQ.length, c.length);
     }
 }
+export function deleteCookie(name: any) {
+    // This function assumes the cookie exists
+    const expirationDate = new Date(0).toUTCString();
+  
+    
+  // Build the cookie string with the expired date and necessary attributes
+  let cookieString = `${name}=; expires=${expirationDate}`
+  
+  
+  // Set the document.cookie
+  document.cookie = cookieString;
+}
