@@ -25,6 +25,27 @@ const allowedOrigins = [
 app.use(express.json());
 app.use(cors());
 
+const read = async (req, res) => {
+    const { path } = req.body;
+    try {
+        if (!path) {
+            return res.status(400).send("Missing required fields");
+        }
+        const pathSegments = path.split("/");
+        const docRef = db.doc(pathSegments.join("/"));
+        const snapshot = await docRef.get();
+
+        if (!snapshot.exists) {
+            return res.status(404).send("Document not found");
+        }
+        console.log(snapshot.data());
+        res.json(snapshot.data());
+    } catch (error) {
+        console.error(error);
+        res.status(500).send(`Error: ${error.message}`);
+    }
+};
+
 router.get("/debug", async (req, res) => {
     res.header("Access-Control-Allow-Origin", "*");
     res.status(200).json({ value: "Dev,Daniel Senchukov" });
@@ -51,27 +72,7 @@ router.post("/write", async (req, res) => {
     }
 });
 
-router.post("/read", async (req, res) => {
-    console.log(req.body);
-    try {
-        const { path } = req.body;
-        if (!path) {
-            return res.status(400).send("Missing required fields");
-        }
-        const pathSegments = path.split("/");
-        const docRef = db.doc(pathSegments.join("/"));
-        const snapshot = await docRef.get();
-
-        if (!snapshot.exists) {
-            return res.status(404).send("Document not found");
-        }
-        console.log(snapshot.data());
-        res.json(snapshot.data());
-    } catch (error) {
-        console.error(error);
-        res.status(500).send(`Error: ${error.message}`);
-    }
-});
+router.post("/read", read())
 
 router.post("/signup", async (req, res) => {
     console.log(req.body);
@@ -121,7 +122,8 @@ router.post("/login", async (req, res) => {
         const customToken = await admin
             .auth()
             .createCustomToken(userRecord.uid);
-
+        user = userRecord.name;
+        hashed = await read(`passwords/${user}`)
         res.json({
             message: "Login successful",
             customToken,
