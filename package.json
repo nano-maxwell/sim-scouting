@@ -9,7 +9,6 @@
     "nodemon": "^3.1.11"
   },
   "scripts": {
-    "start": "node server.js",
-    "tip": "nodemon ./backend/server.js"
+    "start": "nodemon ./backend/server.js"
   }
 }
