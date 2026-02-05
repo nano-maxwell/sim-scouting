@@ -47,7 +47,7 @@ const read = async (req, res) => {
 };
 
 router.get("/debug", async (req, res) => {
-    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Origin", "https://3464scouting.vercel.app");
     res.status(200).json({ value: "Dev,Daniel Senchukov" });
 });
 
