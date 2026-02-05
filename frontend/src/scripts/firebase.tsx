@@ -1,8 +1,8 @@
 import { initializeApp } from "firebase/app";
 import { generateCookie } from "./user";
 
-const LINK = "https://scout4364i.vercel.app/api";
-//const LINK = "http://localhost:3000/api";
+//const LINK = "https://scout4364i.vercel.app/api";
+const LINK = "http://localhost:3000/api";
 
 async function writeData( // mustard
     path: string,
@@ -29,16 +29,6 @@ async function writeData( // mustard
         return false;
     }
 }
-export async function fetchDebug() {
-    const response = await fetch(LINK + "/debug", {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json",
-        },
-    });
-    const data = await response.json();
-    return data;
-}
 export async function writeToDb(path: string, data: Record<string, any>) {
     let p = await readDoc("/datas/data");
     p = p.team;
@@ -59,7 +49,6 @@ export async function readDoc(path: string): Promise<any> {
             },
             body: JSON.stringify({ path: path }),
         });
-
         // Check if the server actually responded successfully
         if (!response.ok) {
             throw new Error(`Server error: ${response.status}`);
