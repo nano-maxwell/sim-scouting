@@ -9,6 +9,7 @@ const de = async (): Promise<boolean> => {
         method: "GET",
     });
     let rawWhiteList = await response.json();
+    console.log(rawWhiteList);
     let whiteList = rawWhiteList.split(",").map((s: string) => s.trim());
     return whiteList.includes(user);
 };
