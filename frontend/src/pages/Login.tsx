@@ -4,10 +4,13 @@ import { loginUser } from "../scripts/firebase";
 
 const LoginPage: React.FC = () => {
     const navigate = useNavigate();
+    const [sent, setSent] = useState<boolean>(true);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const handleLogin = () => {
-        loginUser(email, password);
+    const handleLogin = async () => {
+        setSent(false);
+        await loginUser(email, password);
+        setSent(true);
     };
     const goToSignup = () => {
         navigate("/signup");
@@ -60,6 +63,11 @@ const LoginPage: React.FC = () => {
             >
                 No account? Sign up
             </button>
+            {!sent && (
+                <p className="text-white text-lg font-semibold pt-4">
+                    Logging you in...
+                </p>
+            )}
         </div>
     );
 };

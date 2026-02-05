@@ -136,6 +136,39 @@ router.post("/login", async (req, res) => {
     }
 });
 
+router.post("/register", async (req, res) => {
+    try {
+        const { email, password, name } = req.body;
+
+        if (!email || !password) {
+            return res.status(400).send("Email and password are required");
+        }
+        const userRecord = await admin.auth().createUser({
+            email,
+            password,
+            displayName: name,
+        });
+        res.status(201).json({
+            message: "User created successfully",
+            uid: userRecord.uid,
+            email: userRecord.email,
+            name: userRecord.displayName,
+        });
+    } catch (error) {
+        console.error(error);
+        if (error.code === "auth/email-already-exists") {
+            return res.status(400).send("Email already in use");
+        }
+        if (error.code === "auth/invalid-email") {
+            return res.status(400).send("Invalid email address");
+        }
+        if (error.code === "auth/weak-password") {
+            return res.status(400).send("Password is too weak");
+        }
+        res.status(500).send(`Error: ${error.message}`);
+    }
+});
+
 app.use("/api", router); // floyd
 
 app.listen(PORT, () => {
