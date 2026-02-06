@@ -102,28 +102,32 @@ export async function registerUser(
 }
 
 export async function loginUser(email: string, password: string) {
-    const response = await fetch(LINK + "/login", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-            email: email,
-            password: password,
-        }),
-    });
-    const data = await response.json();
-    let res = response.status
-    if (res == 200) {
-        generateCookie("user", data.name, 7);
-        window.location.href = "/";
-        console.log(data);
-        
-    } else {
-        if (res == 500) {
-            alert("Uh oh something wrong")
+    try {
+        const response = await fetch(LINK + "/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                email: email,
+                password: password,
+            }),
+        });
+        const data = await response.json();
+        let res = response.status;
+        if (res == 200) {
+            generateCookie("user", data.name, 7);
+            window.location.href = "/";
+            console.log(data);
         } else {
-            alert("Password or email invalid");
+            if (res == 401) {
+                alert("Password or email invalid");
+            } else {
+                alert("not good");
+                window.location.href = "/login";
+            }
         }
+    } catch (err) {
+        console.error(err);
     }
 }
