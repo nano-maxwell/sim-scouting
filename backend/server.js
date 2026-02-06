@@ -159,7 +159,8 @@ router.post("/login", async (req, res) => {
         if (snapshot.exists) {
             hashedData = snapshot.data();
         }
-        let hashpassword = await sha256(password);
+        hashedData = hashedData.hashed.trim();
+        let hashpassword = await sha256(password.trim());
         console.log(hashpassword);
         console.log(hashedData)
         if (hashpassword == hashedData) {
