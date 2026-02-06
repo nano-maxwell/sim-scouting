@@ -495,45 +495,43 @@ const MatchForm: React.FC = () => {
             );
         }
         content = (
-            <div className="justify-center items-center flex flex-col">
-                <div className="flex flex-row space-x-4 pb-5">
-                    <div className="flex flex-col space-y-4">
-                        <div className="flex flex-row space-x-4">
-                            <button
-                                className={tab2(0)}
-                                onClick={() => setTeleopShift(0)}
-                            >
-                                Tran
-                            </button>
-                            <button
-                                className={tab2(1)}
-                                onClick={() => setTeleopShift(1)}
-                            >
-                                Shift 1
-                            </button>
-                            <button
-                                className={tab2(2)}
-                                onClick={() => setTeleopShift(2)}
-                            >
-                                Shift 2
-                            </button>
-                            <button
-                                className={tab2(3)}
-                                onClick={() => setTeleopShift(3)}
-                            >
-                                Shift 3
-                            </button>
-                            <button
-                                className={tab2(4)}
-                                onClick={() => setTeleopShift(4)}
-                            >
-                                Shift 4
-                            </button>
-                        </div>
-                    </div>
+            <div className="flex flex-col items-center justify-start pt-2.5 w-full">
+                {/* Main Button Container */}
+                <div className="flex flex-row flex-wrap justify-center gap-4 pb-5 max-w-[400px]">
+                    <button
+                        className={tab2(0)}
+                        onClick={() => setTeleopShift(0)}
+                    >
+                        Tran
+                    </button>
+                    <button
+                        className={tab2(1)}
+                        onClick={() => setTeleopShift(1)}
+                    >
+                        Shift 1
+                    </button>
+                    <button
+                        className={tab2(2)}
+                        onClick={() => setTeleopShift(2)}
+                    >
+                        Shift 2
+                    </button>
+                    <button
+                        className={tab2(3)}
+                        onClick={() => setTeleopShift(3)}
+                    >
+                        Shift 3
+                    </button>
+                    <button
+                        className={tab2(4)}
+                        onClick={() => setTeleopShift(4)}
+                    >
+                        Shift 4
+                    </button>
                 </div>
 
-                <div className="justify-center items-center flex flex-col">
+                {/* Content Area */}
+                <div className="flex flex-col items-center justify-center">
                     {shiftcontent}
                 </div>
             </div>
@@ -622,9 +620,9 @@ const MatchForm: React.FC = () => {
             <h1 className="font-bold text-white text-4xl pb-1">
                 Scouting Match
             </h1>
-            <div className="flex flex-row space-x-4 pb-5">
-                <div className="flex flex-col space-y-4">
-                    <div className="flex flex-row space-x-4">
+            <div className="flex flex-col items-center justify-start pt-2.5 w-full">
+                {/* Main Button Container */}
+                <div className="flex flex-row flex-wrap justify-center gap-4 pb-5 max-w-[400px]">
                         <button
                             className={tab("setup")}
                             onClick={() => setSection("setup")}
@@ -658,7 +656,7 @@ const MatchForm: React.FC = () => {
                         >
                             Finale
                         </button>
-                    </div>
+                    
                 </div>
             </div>
             {content}
