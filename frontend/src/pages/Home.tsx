@@ -4,7 +4,7 @@ import { readCookie, deleteCookie } from "../scripts/user";
 
 // Debug mode
 const de = async (): Promise<boolean> => {
-    const user = readCookie("user");
+    const user = readCookie("uid");
     const response = await fetch("https://scout4364i.vercel.app/api/debug", {
         method: "GET",
     });
@@ -13,10 +13,17 @@ const de = async (): Promise<boolean> => {
     let whiteList = rawWhiteList.value.split(",").map((s: string) => s.trim());
     return whiteList.includes(user);
 };
+
+
 let debug = await de();
+
 export { debug };
+
+
+const signedIn = readCookie("user");
+
+
 const Home: React.FC = () => {
-    const signedIn = readCookie("user");
 
     const navigate = useNavigate();
 
