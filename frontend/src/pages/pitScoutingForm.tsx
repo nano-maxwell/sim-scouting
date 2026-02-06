@@ -3,11 +3,11 @@ import { useNavigate } from "react-router-dom";
 import IntegerInput from "../components/IntegerInput";
 import AutoResizeTextarea from "../components/AutoResizeTextArea";
 import { readCookie } from "../scripts/user";
-import debug from "../pages/Home";
+
 import { writeToDb } from "../scripts/firebase";
 import Dropdown from "../components/Dropdown";
 import BinaryChoice from "../components/BinaryChoice";
-
+import { debug } from "./Home";
 
 
 const PitScoutingForm: React.FC = () => {
@@ -50,11 +50,7 @@ const events = ["NE District Minuteman Event", "NE District URI Event"];
 async function submitData() {
     //make sure certain fields are filled out
     let check: boolean =
-        eventName !== "" &&
-        teamnum !== null &&
-        matchNumber !== null
-
-
+        eventName !== "" && teamnum !== null && matchNumber !== null;
 
     const data = {
         
@@ -73,6 +69,7 @@ async function submitData() {
         outpost: outpost
 
     };
+
 
 
     console.log(data);
