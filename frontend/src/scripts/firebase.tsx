@@ -19,22 +19,23 @@ async function sha256(message: string) {
     return hashHex;
 }
 
-async function writeData( // mustard
-    path: string,
-    data: any,
-) {
+async function writeData(path: string, data: any) {
+    // mustard
     try {
         let body = {
             path: path,
             data: data,
         };
-        fetch(LINK + "/write", {
+        const response = await fetch(LINK + "/write", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(body),
         });
+        if (!response.ok) {
+            throw new Error(`Server error: ${response.status}`);
+        }
         return true;
     } catch (err) {
         console.error("Error writing document:", err);
@@ -45,11 +46,12 @@ async function writeData( // mustard
     }
 }
 export async function writeToDb(path: string, data: any) {
+    console.log(path);
     let p = await readDoc("/datas/data");
     p = p.team;
     if (p && !p.includes(data.teamNumber)) {
         p.push(data.teamNumber);
-        await writeData( "datas/data", {
+        await writeData("datas/data", {
             team: p,
         });
     }
@@ -82,40 +84,62 @@ export async function registerUser(
     password: string,
     name: string,
 ) {
-    const response = fetch(LINK + "/register", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-            email: email,
-            password: password,
-            name: name,
-        }),
-    });
-    const data = await (await response).json();
-    let hashed = await sha256(password)
-    console.log(await hashed);
-    writeData("passwords",  hashed);
-    generateCookie("user", data.name, 7);
-    window.location.href = "/";
-    console.log(data);
+    try {
+        const response = await fetch(LINK + "/register", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                email: email,
+                password: password,
+                name: name,
+            }),
+        });
+        if (!response.ok) {
+            alert(`error: ${response.status}`);
+            window.location.href = "/signup"
+        }
+        const data = await response.json();
+        let hashed = await sha256(password);
+        console.log(await hashed);
+        writeData(`auth/${name}`, { hashed: hashed });
+        generateCookie("user", data.name, 7);
+        window.location.href = "/";
+        console.log(data);
+    } catch (error) {
+        console.error("Error registering user:", error);
+        alert("Registration failed. Please try again.");
+    }
 }
 
 export async function loginUser(email: string, password: string) {
-    const response = await fetch(LINK + "/login", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-            email: email,
-            password: password,
-        }),
-    });
-    const data = await response.json();
-    generateCookie("user", data.name, 7);
-    generateCookie("uid", data.uid, 7)
-    window.location.href = "/";
-    console.log(data);
+    try {
+        const response = await fetch(LINK + "/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                email: email,
+                password: password,
+            }),
+        });
+        let res = response.status;
+        if (res == 200) {
+            let data = await response.json();
+            generateCookie("user", data.name, 7);
+            window.location.href = "/";
+            console.log(data);
+        } else {
+            if (res == 401) {
+                alert("Password or email invalid");
+            } else {
+                alert("not good");
+                window.location.href = "/login";
+            }
+        }
+    } catch (err) {
+        console.error(err);
+    }
 }
