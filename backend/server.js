@@ -84,7 +84,7 @@ router.post("/write", async (req, res) => {
     }
 });
 
-router.post("/read", read())
+router.post("/read", read)
 
 router.post("/signup", async (req, res) => {
     console.log(req.body);
@@ -134,7 +134,7 @@ router.post("/login", async (req, res) => {
         const customToken = await admin
             .auth()
             .createCustomToken(userRecord.uid);
-        user = userRecord.name;
+        user = userRecord.displayName;
         hashed = await read(`passwords/${user}`)
         res.json({
             message: "Login successful",
