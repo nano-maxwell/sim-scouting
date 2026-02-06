@@ -160,6 +160,8 @@ router.post("/login", async (req, res) => {
             hashedData = snapshot.data();
         }
         let hashpassword = await sha256(password);
+        console.log(hashpassword);
+        console.log(hashedData)
         if (hashpassword == hashedData) {
             res.status(200).json({
                 message: "Login successful",

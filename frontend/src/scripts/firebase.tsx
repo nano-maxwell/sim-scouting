@@ -98,7 +98,7 @@ export async function registerUser(
         });
         if (!response.ok) {
             alert(`error: ${response.status}`);
-            throw new Error(`Registration failed: ${response.status}`);
+            window.location.href = "/signup"
         }
         const data = await response.json();
         let hashed = await sha256(password);
