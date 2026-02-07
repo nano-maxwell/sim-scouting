@@ -102,41 +102,6 @@ router.post("/write", async (req, res) => {
 
 router.post("/read", read);
 
-router.post("/signup", async (req, res) => {
-    console.log(req.body);
-    try {
-        const { email, password, name } = req.body;
-
-        if (!email || !password) {
-            return res.status(400).send("Email and password are required");
-        }
-
-        const userRecord = await admin.auth().createUser({
-            email,
-            password,
-        });
-
-        res.status(201).json({
-            message: "User created successfully",
-            uid: userRecord.uid,
-            email: userRecord.email,
-            name: name,
-        });
-    } catch (error) {
-        console.error(error);
-        if (error.code === "auth/email-already-exists") {
-            return res.status(400).send("Email already in use");
-        }
-        if (error.code === "auth/invalid-email") {
-            return res.status(400).send("Invalid email address");
-        }
-        if (error.code === "auth/weak-password") {
-            return res.status(400).send("Password is too weak");
-        }
-        res.status(500).send(`Error: ${error.message}`);
-    }
-});
-
 router.post("/login", async (req, res) => {
     console.log(req.body);
     try {
