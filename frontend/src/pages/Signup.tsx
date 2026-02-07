@@ -4,17 +4,16 @@ import { registerUser } from "../scripts/firebase";
 
 const SignupPage: React.FC = () => {
     const navigate = useNavigate();
-
     const goBack = () => {
         navigate("/");
     };
-
+    const [sent, setSent] = useState<boolean>(true);
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
 
-    const handleSignup = () => {
+    const handleSignup = async () => {
         if (password.length <= 6) {
             alert("Password must be longer than 6 characters.");
             return;
@@ -23,7 +22,9 @@ const SignupPage: React.FC = () => {
             alert("Passwords do not match!");
             return;
         } else {
-            registerUser(email, password, name);
+            setSent(false);
+            await registerUser(email, password, name);
+            setSent(true);
         }
     };
 
@@ -88,6 +89,11 @@ const SignupPage: React.FC = () => {
             >
                 Already have an account? Log in
             </button>
+            {!sent && (
+                <p className="text-white text-lg font-semibold pt-4">
+                    Creating your account...
+                </p>
+            )}
         </div>
     );
 };
